@@ -1,0 +1,1 @@
+# revistaria-api

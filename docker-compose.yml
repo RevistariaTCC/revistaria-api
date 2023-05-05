@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+    volumes:
+      - .:/app
+    stdin_open: true
+    tty: true
+
+  api:
+    extends: app
+    container_name: api
+    command: npm start
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: mongodb://${DB_USERNAME}:${DB_PASSWORD}@db:27017/${DB_NAME}?authSource=admin&retryWrites=false
+    ports:
+      - '4000:4000'
+    depends_on:
+      - db
+    links:
+      - db
+    expose:
+      - '4000'
+
+  prisma:
+    extends: app
+    command: npx prisma studio
+    depends_on:
+      - api
+    ports:
+      - '5555:5555'
+    expose:
+      - '5555'
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: mongodb://${DB_USERNAME}:${DB_PASSWORD}@db:27017/${DB_NAME}?authSource=admin&retryWrites=false
+
+  db:
+    image: mongo:latest
+    ports:
+      - '27017:27017'
+    expose:
+      - 27017
+    env_file:
+      - .env
