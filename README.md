@@ -20,8 +20,14 @@ Estrutura de serviços para o TCC de Revistaria da FESPPR 2023
 
 ### Configurando o ambiente
 
-É necessário criar a imagem do container, através dos comandos:
+É necessário criar o arquivo .env com as credenciais corretas, para isso crie o arquivo .env com o conteudo
+vazio, e copie o conteudo do .env.example
+
+Complete as informações com os valores corretos e após isso prossiga para as próximas configurações
+
+É necessário criar a imagem do container e realizar a instalação dos pacotes NPM, através dos comandos:
 - `docker-compose build`
+- `docker-compose run --rm api npm install`
 
 ### Rodando o ambiente
 
