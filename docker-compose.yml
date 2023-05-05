@@ -26,6 +26,19 @@ services:
     expose:
       - '4000'
 
+  test:
+    extends: app
+    container_name: tests
+    command: npm test
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: mongodb://${DB_USERNAME}:${DB_PASSWORD}@db:27017/${DB_NAME}?authSource=admin&retryWrites=false
+    depends_on:
+      - db
+    links:
+      - db
+
   prisma:
     extends: app
     command: npx prisma studio
