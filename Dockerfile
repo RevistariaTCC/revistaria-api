@@ -4,9 +4,9 @@ FROM node:latest
 WORKDIR /app
 
 # Copy the application files into the container
-# COPY . .
+COPY . .
 
-# RUN npm install
+RUN npm install
 
 # Expose port 4000 for Phoenix web server
 EXPOSE 4000
