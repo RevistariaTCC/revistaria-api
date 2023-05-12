@@ -7,35 +7,67 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Post {
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
-  slug     String    @unique
-  title    String
-  body     String
-  author   User      @relation(fields: [authorId], references: [id])
-  authorId String    @db.ObjectId
-  comments Comment[]
+model Category {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+}
+
+model Collection {
+  id                String           @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  image             String
+  is_recurrent      Boolean          @default(false)
+  Volume            Volume[]
+  User              User?            @relation(fields: [userId], references: [id])
+  userId            String?          @db.ObjectId
+  CollectionGroup   CollectionGroup? @relation(fields: [collectionGroupId], references: [id])
+  collectionGroupId String?          @db.ObjectId
+}
+
+enum VolumeStatus {
+  AVAILABLE
+  UNAVAILABLE
+}
+
+model Volume {
+  id           String       @id @default(auto()) @map("_id") @db.ObjectId
+  status       VolumeStatus @default(AVAILABLE)
+  collection   Collection   @relation(fields: [collectionId], references: [id])
+  collectionId String       @db.ObjectId
 }
 
 model User {
-  id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  email   String   @unique
-  name    String?
-  address Address?
-  posts   Post[]
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  email        String         @unique
+  name         String
+  phone        String
+  passwordHash String
+  collections  Collection[]
+  Notification Notification[]
 }
 
-model Comment {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  comment String
-  post    Post   @relation(fields: [postId], references: [id])
-  postId  String @db.ObjectId
+model Notification {
+  id     String             @id @default(auto()) @map("_id") @db.ObjectId
+  title  String
+  text   String
+  status NotificationStatus @default(UNREAD)
+  type   NotificationType   @default(NEW_VOLUME)
+  user   User               @relation(fields: [userId], references: [id])
+  userId String             @db.ObjectId
 }
 
-// Address is an embedded document
-type Address {
-  street String
-  city   String
-  state  String
-  zip    String
+enum NotificationStatus {
+  READ
+  UNREAD
+}
+
+enum NotificationType {
+  NEW_VOLUME
+  NEW_INTEREST
+}
+
+// O nome será a junção dos nomes das 3 primeiras coleções seguido por um "etc".
+model CollectionGroup {
+  id          String       @id @default(auto()) @map("_id") @db.ObjectId
+  collections Collection[]
 }
