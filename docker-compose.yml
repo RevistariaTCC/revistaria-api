@@ -16,11 +16,12 @@ services:
     env_file:
       - .env
     environment:
-      DATABASE_URL: mongodb://${DB_USERNAME}:${DB_PASSWORD}@db:27017/${DB_NAME}?authSource=admin&retryWrites=false
+      DATABASE_URL: mongodb://${DB_USERNAME}:${DB_PASSWORD}@db:27017/${DB_NAME}?authSource=admin&retryWrites=false&directConnection=true&w=majority
     ports:
       - '4000:4000'
     depends_on:
       - db
+      - prisma
     links:
       - db
     expose:
@@ -33,7 +34,7 @@ services:
     env_file:
       - .env
     environment:
-      DATABASE_URL: mongodb://${DB_USERNAME}:${DB_PASSWORD}@db:27017/${DB_NAME}?authSource=admin&retryWrites=false
+      DATABASE_URL: mongodb://${DB_USERNAME}:${DB_PASSWORD}@db:27017/${DB_NAME}?authSource=admin&retryWrites=false&directConnection=true
     depends_on:
       - db
     links:
@@ -42,8 +43,6 @@ services:
   prisma:
     extends: app
     command: npx prisma studio
-    depends_on:
-      - api
     ports:
       - '5555:5555'
     expose:
@@ -51,10 +50,10 @@ services:
     env_file:
       - .env
     environment:
-      DATABASE_URL: mongodb://${DB_USERNAME}:${DB_PASSWORD}@db:27017/${DB_NAME}?authSource=admin&retryWrites=false
+      DATABASE_URL: mongodb://${DB_USERNAME}:${DB_PASSWORD}@db:27017/${DB_NAME}?authSource=admin&retryWrites=false&directConnection=true
 
   db:
-    image: mongo:latest
+    build: ./mongodb_rs
     ports:
       - '27017:27017'
     expose:
