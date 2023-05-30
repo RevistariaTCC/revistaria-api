@@ -8,20 +8,10 @@ generator client {
 }
 
 model Category {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
-  name String
-}
-
-model Collection {
-  id                String           @id @default(auto()) @map("_id") @db.ObjectId
-  name              String
-  image             String
-  is_recurrent      Boolean          @default(false)
-  Volume            Volume[]
-  User              User?            @relation(fields: [userId], references: [id])
-  userId            String?          @db.ObjectId
-  CollectionGroup   CollectionGroup? @relation(fields: [collectionGroupId], references: [id])
-  collectionGroupId String?          @db.ObjectId
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  collectionIDs String[]     @db.ObjectId
+  collections   Collection[] @relation(fields: [collectionIDs], references: [id])
 }
 
 enum VolumeStatus {
@@ -36,14 +26,28 @@ model Volume {
   collectionId String       @db.ObjectId
 }
 
+model Collection {
+  id                String           @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  image             String
+  collectionGroup   CollectionGroup? @relation(fields: [collectionGroupId], references: [id])
+  collectionGroupId String?          @db.ObjectId
+  categoryIDs       String[]         @db.ObjectId
+  categories        Category[]       @relation(fields: [categoryIDs], references: [id])
+  volumes           Volume[]
+  userIDs           String[]         @db.ObjectId
+  users             User[]           @relation(fields: [userIDs], references: [id])
+}
+
 model User {
-  id           String         @id @default(auto()) @map("_id") @db.ObjectId
-  email        String         @unique
-  name         String
-  phone        String
-  passwordHash String
-  collections  Collection[]
-  Notification Notification[]
+  id            String         @id @default(auto()) @map("_id") @db.ObjectId
+  email         String         @unique
+  name          String
+  phone         String
+  passwordHash  String
+  colectionIDs  String[]       @db.ObjectId
+  collections   Collection[]   @relation(fields: [colectionIDs], references: [id])
+  notifications Notification[]
 }
 
 model Notification {
