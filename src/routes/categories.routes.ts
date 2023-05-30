@@ -1,5 +1,4 @@
 import { FastifyInstance } from 'fastify';
-import { z } from 'zod';
 import CategoriesSchema from '../schemas/category';
 import CreateCategory from '../services/CreateCategory';
 import ListCategories from '../services/ListCategories';
