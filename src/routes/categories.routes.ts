@@ -4,7 +4,7 @@ import CreateCategory from '../services/CreateCategory';
 import ListCategories from '../services/ListCategories';
 
 const routes = async (fastify: FastifyInstance) => {
-  fastify.post('/categories', async (request, reply) => {
+  fastify.post('/', async (request, reply) => {
     try {
       const category = CategoriesSchema.parse(request.body);
 
@@ -12,13 +12,12 @@ const routes = async (fastify: FastifyInstance) => {
       const result = await createCategoryService.call(category);
 
       reply.status(201).send(result);
-
     } catch (error) {
       throw error;
     }
   });
 
-  fastify.get("/categories", async (request, reply) => {
+  fastify.get('/', async (request, reply) => {
     try {
       const listCategoriesServices = new ListCategories();
       const result = await listCategoriesServices.call();
@@ -27,7 +26,7 @@ const routes = async (fastify: FastifyInstance) => {
     } catch (error) {
       throw error;
     }
-  })
+  });
 };
 
 export default routes;

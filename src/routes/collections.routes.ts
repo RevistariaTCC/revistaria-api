@@ -4,7 +4,7 @@ import CreateCollection from '../services/CreateCollection';
 import ListCollections from '../services/ListCollections';
 
 const routes = async (fastify: FastifyInstance) => {
-  fastify.post('/collections', async (request, reply) => {
+  fastify.post('/', async (request, reply) => {
     try {
       const collection = CollectionSchema.parse(request.body);
       const createCollectionService = new CreateCollection();
@@ -15,14 +15,14 @@ const routes = async (fastify: FastifyInstance) => {
     }
   });
 
-  fastify.get('/collections', async (request, reply) => {
+  fastify.get('/', async (request, reply) => {
     try {
       const listCollectionsService = new ListCollections();
       const result = await listCollectionsService.call();
 
       reply.status(200).send(result);
     } catch (error) {
-      
+      throw error;
     }
   });
 };
