@@ -5,7 +5,9 @@ class ListCollections {
   public async call() {
     const prisma = new PrismaClient();
 
-    const collections = await prisma.collection.findMany();
+    const collections = await prisma.collection.findMany({include: {
+      categories: true
+    }});
     return collections;
   }
 }

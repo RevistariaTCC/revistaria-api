@@ -4,9 +4,15 @@ import { Collection } from '../schemas/collection';
 class CreateCollection {
   public async call(params: Collection) {
     const prisma = new PrismaClient();
+    let {categories, ...rest } = params
 
     const collection = prisma.collection.create({
-      data: params
+      data: {
+        categories: {
+          connect: categories.map(item => ({id: item}))
+        },
+        ...rest
+      }
     });
 
     await prisma.$disconnect();
