@@ -3,8 +3,8 @@ import {z} from "zod";
 const CollectionSchema = z.object({
   name: z.string(),
   image: z.string(),
-  collectionGroupId: z.string().optional(),
-  categoryIDs: z.string().array()
+  collectionGroupId: z.number().optional(),
+  categories: z.number().array()
 })
 
 

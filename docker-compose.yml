@@ -16,12 +16,11 @@ services:
     env_file:
       - .env
     environment:
-      DATABASE_URL: mongodb://${DB_USERNAME}:${DB_PASSWORD}@db:27017/${DB_NAME}?authSource=admin&retryWrites=false&directConnection=true&w=majority
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}?schema=public
     ports:
       - '4000:4000'
     depends_on:
       - db
-      - prisma
     links:
       - db
     expose:
@@ -34,7 +33,7 @@ services:
     env_file:
       - .env
     environment:
-      DATABASE_URL: mongodb://${DB_USERNAME}:${DB_PASSWORD}@db:27017/${DB_NAME}?authSource=admin&retryWrites=false&directConnection=true
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}?schema=public
     depends_on:
       - db
     links:
@@ -50,13 +49,13 @@ services:
     env_file:
       - .env
     environment:
-      DATABASE_URL: mongodb://${DB_USERNAME}:${DB_PASSWORD}@db:27017/${DB_NAME}?authSource=admin&retryWrites=false&directConnection=true
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}?schema=public
 
   db:
-    build: ./mongodb_rs
+    image: postgres
     ports:
-      - '27017:27017'
+      - '5432:5432'
     expose:
-      - 27017
+      - 5432
     env_file:
       - .env

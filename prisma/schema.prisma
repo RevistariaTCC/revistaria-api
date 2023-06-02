@@ -1,17 +1,19 @@
-datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
-}
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
   provider = "prisma-client-js"
 }
 
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
 model Category {
-  id            String       @id @default(auto()) @map("_id") @db.ObjectId
-  name          String
-  collectionIDs String[]     @db.ObjectId
-  collections   Collection[] @relation(fields: [collectionIDs], references: [id])
+  id          Int          @id @default(autoincrement())
+  name        String
+  collections Collection[]
 }
 
 enum VolumeStatus {
@@ -20,44 +22,41 @@ enum VolumeStatus {
 }
 
 model Volume {
-  id           String       @id @default(auto()) @map("_id") @db.ObjectId
+  id           Int          @id @default(autoincrement())
   status       VolumeStatus @default(AVAILABLE)
   collection   Collection   @relation(fields: [collectionId], references: [id])
-  collectionId String       @db.ObjectId
+  collectionId Int
 }
 
 model Collection {
-  id                String           @id @default(auto()) @map("_id") @db.ObjectId
+  id                Int              @id @default(autoincrement())
   name              String
   image             String
   collectionGroup   CollectionGroup? @relation(fields: [collectionGroupId], references: [id])
-  collectionGroupId String?          @db.ObjectId
-  categoryIDs       String[]         @db.ObjectId
-  categories        Category[]       @relation(fields: [categoryIDs], references: [id])
+  categories        Category[]
   volumes           Volume[]
-  userIDs           String[]         @db.ObjectId
-  users             User[]           @relation(fields: [userIDs], references: [id])
+  users             User[]
+  collectionGroupId Int?
 }
 
 model User {
-  id            String         @id @default(auto()) @map("_id") @db.ObjectId
+  id            Int            @id @default(autoincrement())
   email         String         @unique
   name          String
   phone         String
   passwordHash  String
-  colectionIDs  String[]       @db.ObjectId
-  collections   Collection[]   @relation(fields: [colectionIDs], references: [id])
+  collections   Collection[]
   notifications Notification[]
 }
 
 model Notification {
-  id     String             @id @default(auto()) @map("_id") @db.ObjectId
+  id     Int                @id @default(autoincrement())
   title  String
   text   String
   status NotificationStatus @default(UNREAD)
   type   NotificationType   @default(NEW_VOLUME)
   user   User               @relation(fields: [userId], references: [id])
-  userId String             @db.ObjectId
+  userId Int
 }
 
 enum NotificationStatus {
@@ -72,6 +71,6 @@ enum NotificationType {
 
 // O nome será a junção dos nomes das 3 primeiras coleções seguido por um "etc".
 model CollectionGroup {
-  id          String       @id @default(auto()) @map("_id") @db.ObjectId
+  id          Int          @id @default(autoincrement())
   collections Collection[]
 }
