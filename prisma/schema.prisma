@@ -26,6 +26,8 @@ model Volume {
   status       VolumeStatus @default(AVAILABLE)
   collection   Collection   @relation(fields: [collectionId], references: [id])
   collectionId Int
+  title String
+  image String
 }
 
 model Collection {

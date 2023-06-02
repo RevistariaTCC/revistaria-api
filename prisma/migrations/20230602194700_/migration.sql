@@ -20,6 +20,8 @@ CREATE TABLE "Volume" (
     "id" SERIAL NOT NULL,
     "status" "VolumeStatus" NOT NULL DEFAULT 'AVAILABLE',
     "collectionId" INTEGER NOT NULL,
+    "title" TEXT NOT NULL,
+    "image" TEXT NOT NULL,
 
     CONSTRAINT "Volume_pkey" PRIMARY KEY ("id")
 );

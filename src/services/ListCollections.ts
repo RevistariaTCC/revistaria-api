@@ -6,7 +6,8 @@ class ListCollections {
     const prisma = new PrismaClient();
 
     const collections = await prisma.collection.findMany({include: {
-      categories: true
+      categories: true,
+      volumes: true,
     }});
     return collections;
   }
