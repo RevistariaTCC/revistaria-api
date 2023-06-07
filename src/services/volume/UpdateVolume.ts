@@ -5,12 +5,12 @@ class UpdateVolume {
   public async call(params: PartialVolume) {
     const { id, ...rest } = params;
     const prisma = new PrismaClient();
-    
+
     const updatedVolume = await prisma.volume.update({
       where: {
         id: id
       },
-      data: {...rest}
+      data: { ...rest }
     });
     await prisma.$disconnect();
 
