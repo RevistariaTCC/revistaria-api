@@ -1,10 +1,10 @@
 import {z} from "zod";
 
 const VolumeSchema = z.object({
-  id: z.number().optional(),
+  id: z.string().optional(),
   title: z.string(),
   image: z.string(),
-  collectionId: z.number(),
+  collectionId: z.string(),
   status: z.enum(['AVAILABLE', 'UNAVAILABLE'])
 })
 

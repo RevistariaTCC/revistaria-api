@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Category {
-  id          Int          @id @default(autoincrement())
+  id   String @id @default(uuid())
   name        String
   collections Collection[]
 }
@@ -22,27 +22,27 @@ enum VolumeStatus {
 }
 
 model Volume {
-  id           Int          @id @default(autoincrement())
+  id   String @id @default(uuid())
   status       VolumeStatus @default(AVAILABLE)
   collection   Collection   @relation(fields: [collectionId], references: [id])
-  collectionId Int
+  collectionId String
   title String
   image String
 }
 
 model Collection {
-  id                Int              @id @default(autoincrement())
+  id   String @id @default(uuid())
   name              String
   image             String
   collectionGroup   CollectionGroup? @relation(fields: [collectionGroupId], references: [id])
   categories        Category[]
   volumes           Volume[]
   users             User[]
-  collectionGroupId Int?
+  collectionGroupId String?
 }
 
 model User {
-  id            Int            @id @default(autoincrement())
+  id   String @id @default(uuid())
   email         String         @unique
   name          String
   phone         String
@@ -52,13 +52,13 @@ model User {
 }
 
 model Notification {
-  id     Int                @id @default(autoincrement())
+  id   String @id @default(uuid())
   title  String
   text   String
   status NotificationStatus @default(UNREAD)
   type   NotificationType   @default(NEW_VOLUME)
   user   User               @relation(fields: [userId], references: [id])
-  userId Int
+  userId String
 }
 
 enum NotificationStatus {
@@ -73,6 +73,6 @@ enum NotificationType {
 
 // O nome será a junção dos nomes das 3 primeiras coleções seguido por um "etc".
 model CollectionGroup {
-  id          Int          @id @default(autoincrement())
+  id   String @id @default(uuid())
   collections Collection[]
 }

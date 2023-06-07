@@ -1,7 +1,7 @@
 import { z } from "zod"
 
 const CategoriesSchema = z.object({
-  id: z.number().optional(),
+  id: z.string().optional(),
   name: z.string()
 })
 

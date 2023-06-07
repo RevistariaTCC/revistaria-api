@@ -1,16 +1,13 @@
 version: '3.8'
 
 services:
-  app:
+  api:
     build:
       context: .
     volumes:
       - .:/app
     stdin_open: true
     tty: true
-
-  api:
-    extends: app
     container_name: api
     command: npm start
     env_file:
@@ -27,7 +24,12 @@ services:
       - '4000'
 
   test:
-    extends: app
+    build:
+      context: .
+    volumes:
+      - .:/test
+    stdin_open: true
+    tty: true
     container_name: tests
     command: npm test
     env_file:
@@ -40,7 +42,12 @@ services:
       - db
 
   prisma:
-    extends: app
+    build:
+      context: .
+    volumes:
+      - .:/prisma
+    stdin_open: true
+    tty: true
     command: npx prisma studio
     ports:
       - '5555:5555'

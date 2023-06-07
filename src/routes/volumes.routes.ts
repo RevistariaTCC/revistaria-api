@@ -46,7 +46,7 @@ const routes = async (fastify: FastifyInstance) => {
 
       const volume = VolumeSchema.partial().parse(request.body);
       const updateVolume = new UpdateVolume();
-      const result = await updateVolume.call({id: parseInt(id), ...volume});
+      const result = await updateVolume.call({id, ...volume});
       reply.status(200).send(result);
     } catch (error) {
       throw error;

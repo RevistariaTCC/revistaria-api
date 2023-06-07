@@ -9,7 +9,7 @@ CREATE TYPE "NotificationType" AS ENUM ('NEW_VOLUME', 'NEW_INTEREST');
 
 -- CreateTable
 CREATE TABLE "Category" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
 
     CONSTRAINT "Category_pkey" PRIMARY KEY ("id")
@@ -17,9 +17,9 @@ CREATE TABLE "Category" (
 
 -- CreateTable
 CREATE TABLE "Volume" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "status" "VolumeStatus" NOT NULL DEFAULT 'AVAILABLE',
-    "collectionId" INTEGER NOT NULL,
+    "collectionId" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "image" TEXT NOT NULL,
 
@@ -28,17 +28,17 @@ CREATE TABLE "Volume" (
 
 -- CreateTable
 CREATE TABLE "Collection" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "image" TEXT NOT NULL,
-    "collectionGroupId" INTEGER,
+    "collectionGroupId" TEXT,
 
     CONSTRAINT "Collection_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "User" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
@@ -49,33 +49,33 @@ CREATE TABLE "User" (
 
 -- CreateTable
 CREATE TABLE "Notification" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "text" TEXT NOT NULL,
     "status" "NotificationStatus" NOT NULL DEFAULT 'UNREAD',
     "type" "NotificationType" NOT NULL DEFAULT 'NEW_VOLUME',
-    "userId" INTEGER NOT NULL,
+    "userId" TEXT NOT NULL,
 
     CONSTRAINT "Notification_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "CollectionGroup" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
 
     CONSTRAINT "CollectionGroup_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "_CategoryToCollection" (
-    "A" INTEGER NOT NULL,
-    "B" INTEGER NOT NULL
+    "A" TEXT NOT NULL,
+    "B" TEXT NOT NULL
 );
 
 -- CreateTable
 CREATE TABLE "_CollectionToUser" (
-    "A" INTEGER NOT NULL,
-    "B" INTEGER NOT NULL
+    "A" TEXT NOT NULL,
+    "B" TEXT NOT NULL
 );
 
 -- CreateIndex

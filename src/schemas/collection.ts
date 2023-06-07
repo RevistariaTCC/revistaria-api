@@ -1,11 +1,11 @@
 import {z} from "zod";
 
 const CollectionSchema = z.object({
-  id: z.number().optional(),
+  id: z.string().optional(),
   name: z.string(),
   image: z.string(),
-  collectionGroupId: z.number().optional(),
-  categories: z.number().array()
+  collectionGroupId: z.string().optional(),
+  categories: z.string().array()
 })
 
 
