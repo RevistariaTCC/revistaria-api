@@ -8,7 +8,7 @@ COPY . .
 
 RUN npm install
 
-# Expose port 4000 for Phoenix web server
+# Expose port 4000 for server
 EXPOSE 4000
 
 CMD [ "npm" "start"]
