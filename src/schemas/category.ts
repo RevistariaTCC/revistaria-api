@@ -7,6 +7,6 @@ const CategoriesSchema = z.object({
 
 const UpdateSchema = CategoriesSchema.partial();
 export type Category = z.infer<typeof CategoriesSchema>;
-export type PartialCategory = z.infer<typeof CategoriesSchema>;
+export type PartialCategory = z.infer<typeof UpdateSchema>;
 
 export default CategoriesSchema;
