@@ -1,11 +1,11 @@
 import { PrismaClient } from '@prisma/client';
-import { Volume } from '../schemas/volume';
+import { Volume } from '../../schemas/volume';
 
 class CreateVolume {
   public async call(params: Volume) {
     const prisma = new PrismaClient();
 
-    const volume = prisma.volume.create({
+    const volume = await prisma.volume.create({
       data: params
     });
 

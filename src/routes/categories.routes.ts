@@ -1,7 +1,7 @@
 import { FastifyInstance } from 'fastify';
 import CategoriesSchema from '../schemas/category';
-import CreateCategory from '../services/CreateCategory';
-import ListCategories from '../services/ListCategories';
+import CreateCategory from '../services/category/CreateCategory';
+import ListCategories from '../services/category/ListCategories';
 
 const routes = async (fastify: FastifyInstance) => {
   fastify.post('/', async (request, reply) => {

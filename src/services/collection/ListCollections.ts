@@ -5,10 +5,12 @@ class ListCollections {
   public async call() {
     const prisma = new PrismaClient();
 
-    const collections = await prisma.collection.findMany({include: {
-      categories: true,
-      volumes: true,
-    }});
+    const collections = await prisma.collection.findMany({
+      include: {
+        categories: true,
+        volumes: true
+      }
+    });
     return collections;
   }
 }

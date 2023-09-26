@@ -1,7 +1,7 @@
 import { FastifyInstance } from 'fastify';
 import CollectionSchema from '../schemas/collection';
-import CreateCollection from '../services/CreateCollection';
-import ListCollections from '../services/ListCollections';
+import CreateCollection from '../services/collection/CreateCollection';
+import ListCollections from '../services/collection/ListCollections';
 
 const routes = async (fastify: FastifyInstance) => {
   fastify.post('/', async (request, reply) => {

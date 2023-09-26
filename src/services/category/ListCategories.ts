@@ -5,9 +5,11 @@ class ListCategories {
   public async call() {
     const prisma = new PrismaClient();
 
-    const categories = await prisma.category.findMany({include: {
-      collections: true
-    }});
+    const categories = await prisma.category.findMany({
+      include: {
+        collections: true
+      }
+    });
 
     await prisma.$disconnect();
 

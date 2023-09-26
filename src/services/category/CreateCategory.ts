@@ -1,4 +1,4 @@
-import { Category } from '../schemas/category';
+import { Category } from '../../schemas/category';
 import { PrismaClient } from '@prisma/client';
 
 class CreateCategory {
@@ -18,3 +18,4 @@ class CreateCategory {
 }
 
 export default CreateCategory;
+ 
