@@ -14,6 +14,7 @@ model Category {
   id   String @id @default(uuid())
   name        String
   collections Collection[]
+  users User[]
 }
 
 enum VolumeStatus {
@@ -49,6 +50,7 @@ model User {
   passwordHash  String
   collections   Collection[]
   notifications Notification[]
+  interests Category[]
 }
 
 model Notification {

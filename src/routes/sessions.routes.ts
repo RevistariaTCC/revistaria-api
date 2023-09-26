@@ -11,7 +11,7 @@ const routes = async (fastify: FastifyInstance) => {
       const user = await createSession.execute({email, password});
       
       delete user.passwordHash;
-      const token = fastify.jwt.sign({ user })
+      const token = fastify.jwt.sign(user)
       reply.status(200).send({user, token});
 
     } catch (error) {
