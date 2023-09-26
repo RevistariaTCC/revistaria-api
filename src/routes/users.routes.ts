@@ -5,6 +5,9 @@ import { IParams } from '../types';
 import DeleteUser from '../services/user/DeleteUser';
 import UserSchema, { PartialUser } from '../schemas/user';
 import CreateUser from '../services/user/CreateUser';
+import BoundInterests from '../services/user/BoundInterests';
+import { User } from '@prisma/client';
+import { InterestSchema } from '../schemas/userInterests';
 
 const routes = async (fastify: FastifyInstance) => {
 
@@ -55,10 +58,15 @@ const routes = async (fastify: FastifyInstance) => {
       throw error;
     }
   })
+  fastify.post('/interests', { onRequest: [fastify.authenticate]}, async(request, reply) => {
+    const categoryIDs = InterestSchema.parse(request.body)
+    const boundInterests = new BoundInterests();
+    const user  = request.user as User
+    const result = await boundInterests.execute({user, categoryIDs})
+    delete result.passwordHash;
 
-  fastify.get('/ping', async (request, reply) => {
-    return 'pong\n';
-  });
+    reply.status(200).send(result);
+  })
 };
 
 export default routes;
