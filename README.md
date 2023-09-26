@@ -26,33 +26,39 @@ vazio, e copie o conteudo do .env.example
 Complete as informações com os valores corretos e após isso prossiga para as próximas configurações
 
 É necessário criar a imagem do container e realizar a instalação dos pacotes NPM, através dos comandos:
-- `docker-compose build`
-- `docker-compose run --rm api npm install`
+- `docker-compose up server --build`
 
 ### Rodando o ambiente
 
 Para executar o container do ambiente de desenvolvimento, execute o comando:
 
-`docker-compose up api`
+`docker-compose up server`
 
 
 O serviço ficará disponível em [http://localhost:4000](http://localhost:4000)
 
 Para acessar o terminal do container da api, é possível acessar pelo comando:
 
-`docker-compose run --rm api bash`
+`docker-compose run --rm server sh`
+
+### Executando migrations
+
+Para que as tabelas sejam criadas conforme o esperado, é necessário
+executar as migrations no sistema
+
+- `docker-compose run server npx prisma migrate dev`
+
+O comando retornará o resultado de sucesso, assim já disponibilizando a possibilidade de
+inserção de dados
 
 ### Rodando o prisma
 
-Para executar o container do prisma (Interface para o banco de dados), execute o comando:
-
-- `docker-compose up prisma`
-
-ou você também pode optar por subir todos os containers da aplicação com 
-
-- `docker-compose up`
+Ao subir o ambiente utilizando o comando
+- `npm run dev:prisma`
+automaticamente o prisma será executado (Interface para o banco de dados)
 
 O serviço ficará disponível em [http://localhost:5555](http://localhost:5555)
+
 ## Configuração do ambiente de testes
 
 O ambiente de testes foi configurado em um container separado do ambiente de desenvolvimento.

@@ -18,3 +18,4 @@ class CreateCategory {
 }
 
 export default CreateCategory;
+ 
