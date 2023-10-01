@@ -19,6 +19,7 @@ class DeleteCategory {
         }
       });
 
+      await prisma.$disconnect();
       return deletedCategory;
     } catch (error) {
       throw error;

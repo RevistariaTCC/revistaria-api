@@ -27,6 +27,7 @@ class UpdateCollection {
         }
       });
 
+      await prisma.$disconnect();
       return updatedCollection;
     } catch (error) {
       throw error;

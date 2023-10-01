@@ -20,6 +20,7 @@ class DeleteUser {
       }
     })
 
+    await prisma.$disconnect();
     return user;
   }
 }

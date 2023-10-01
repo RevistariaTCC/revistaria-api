@@ -13,6 +13,8 @@ class ListUser {
         passwordHash: false,
       }
     });
+
+    await prisma.$disconnect();
     return users
   }
 }

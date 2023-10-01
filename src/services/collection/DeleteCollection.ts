@@ -19,6 +19,7 @@ class DeleteCollection {
         }
       });
 
+      await prisma.$disconnect();
       return deletedCollection;
     } catch (error) {
       throw error;
