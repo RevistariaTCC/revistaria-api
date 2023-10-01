@@ -23,6 +23,7 @@ services:
       - 5555:5555
     depends_on:
       - db
+      - redis
     expose:
       - 5555
       - 4000
@@ -46,4 +47,9 @@ services:
       - 5432
     env_file:
       - .env
+
+  redis: 
+    image: redis
+    ports:
+      - '6379:6379'
 
