@@ -10,6 +10,8 @@ class ListVolumes {
         collection: true
       }
     });
+
+    await prisma.$disconnect();
     return volumes;
   }
 }

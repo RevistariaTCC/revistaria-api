@@ -11,6 +11,8 @@ class ListCollections {
         volumes: true
       }
     });
+    
+    await prisma.$disconnect();
     return collections;
   }
 }

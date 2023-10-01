@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { Volume } from '../../schemas/volume';
+import notificationsQueue from '../../queues/notifications';
 
 class CreateVolume {
   public async call(params: Volume) {
@@ -10,6 +11,7 @@ class CreateVolume {
     });
 
     await prisma.$disconnect();
+    await notificationsQueue.add('create', {...volume});
     return volume;
   }
 }

@@ -22,6 +22,7 @@ class UpdateCategory {
         data: { ...rest }
       });
 
+      await prisma.$disconnect();
       return updatedCategory;
     } catch (error) {
       throw error;
