@@ -3,6 +3,7 @@ import fastifyJwt from '@fastify/jwt';
 import userRoutes from './users.routes';
 import categoriesRoutes from './categories.routes';
 import collectionsRoutes from './collections.routes';
+import notificationRoutes from './notifications.routes';
 import volumesRoutes from './volumes.routes';
 import sessionsRoutes from './sessions.routes';
 import authConfig from '../config/auth';
@@ -24,6 +25,7 @@ const routes = async (fastify: FastifyInstance) => {
   fastify.register(userRoutes, {prefix: '/users'} );
   fastify.register(categoriesRoutes, { prefix: '/categories' });
   fastify.register(collectionsRoutes, { prefix: '/collections' });
+  fastify.register(notificationRoutes, {prefix: '/notifications'} );
   fastify.register(volumesRoutes, { prefix: '/volumes' });
   fastify.register(sessionsRoutes, {prefix: '/sessions'})
 };
