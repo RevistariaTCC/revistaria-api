@@ -68,9 +68,9 @@ describe('Category Services', () => {
     it('Should return category not found when id doesnt exists', async () => {
 
       prismaAdapter.category.update.mockResolvedValue(category);
-      const deleteCategory = new DeleteCategory();
+      const updateCategory = new UpdateCategory();
 
-      await expect(deleteCategory.execute(category.id)).rejects.toThrowError("Category not found!")
+      await expect(updateCategory.execute({id: category.id, name: "Aventura"})).rejects.toThrowError("Category not found!")
     })
   })
 

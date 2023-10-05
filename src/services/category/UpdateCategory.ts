@@ -14,15 +14,13 @@ class UpdateCategory {
 
       if (!category) throw new AppError('Category not found!', 404);
 
-      const updatedCategory = await prisma.category.update({
+      return await prisma.category.update({
         where: {
           id: id
         },
         data: { ...rest }
       });
 
-      await prisma.$disconnect();
-      return updatedCategory;
     } catch (error) {
       throw error;
     }
