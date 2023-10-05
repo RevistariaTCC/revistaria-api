@@ -9,7 +9,7 @@ const routes = async (fastify: FastifyInstance) => {
       const category = CategoriesSchema.parse(request.body);
 
       const createCategoryService = new CreateCategory();
-      const result = await createCategoryService.call(category);
+      const result = await createCategoryService.execute(category);
 
       reply.status(201).send(result);
     } catch (error) {

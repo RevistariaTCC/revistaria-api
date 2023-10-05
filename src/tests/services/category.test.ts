@@ -14,7 +14,7 @@ describe('CreateCategory()', () => {
   it('Should return the generated category', async () => {
     prismaAdapter.category.create.mockResolvedValue(category)
     const createCategory = new CreateCategory()
-    const result = await createCategory.call({name: category.name})
+    const result = await createCategory.execute({name: category.name})
 
 
     expect(result).toStrictEqual(category)
