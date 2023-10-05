@@ -1,12 +1,11 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from "../../adapters/prisma-adapter";
 import { PartialCategory } from '../../schemas/category';
 import AppError from '../../errors/AppError';
 
 class UpdateCategory {
-  public async call(params: PartialCategory) {
+  public async execute(params: PartialCategory) {
     try {
       const { id, ...rest } = params;
-      const prisma = new PrismaClient();
       const category = await prisma.category.findUnique({
         where: {
           id: id

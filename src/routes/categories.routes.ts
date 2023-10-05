@@ -20,7 +20,7 @@ const routes = async (fastify: FastifyInstance) => {
   fastify.get('/', async (request, reply) => {
     try {
       const listCategoriesServices = new ListCategories();
-      const result = await listCategoriesServices.call();
+      const result = await listCategoriesServices.execute();
 
       reply.status(200).send(result);
     } catch (error) {
