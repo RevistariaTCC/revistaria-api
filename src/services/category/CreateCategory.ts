@@ -1,19 +1,13 @@
 import { Category } from '../../schemas/category';
-import { PrismaClient } from '@prisma/client';
+import prisma from "../../adapters/prisma-adapter";
 
 class CreateCategory {
   public async call({ name }: Category) {
-    const prisma = new PrismaClient();
-
-    const category = await prisma.category.create({
+    return await prisma.category.create({
       data: {
         name: name
       }
     });
-
-    await prisma.$disconnect();
-
-    return category;
   }
 }
 
