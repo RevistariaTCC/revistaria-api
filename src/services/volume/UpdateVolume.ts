@@ -1,11 +1,10 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from "../../adapters/prisma-adapter";
 import { PartialVolume } from '../../schemas/volume';
 import AppError from '../../errors/AppError';
 
 class UpdateVolume {
-  public async call(params: PartialVolume) {
+  public async execute(params: PartialVolume) {
     const { id, ...rest } = params;
-    const prisma = new PrismaClient();
 
     // Buscar o volume na base, caso não exista retornar um erro
     const volume = await prisma.volume.findUnique({
@@ -14,18 +13,14 @@ class UpdateVolume {
       }
     })
 
-    if (!volume)
-      throw new AppError("Volume not found!", 404)
+    if (!volume) throw new AppError("Volume not found!", 404)
 
-    const updatedVolume = await prisma.volume.update({
+    return await prisma.volume.update({
       where: {
         id: id
       },
       data: { ...rest }
     });
-    await prisma.$disconnect();
-
-    return updatedVolume;
   }
 }
 

@@ -8,7 +8,7 @@ const routes = async (fastify: FastifyInstance) => {
     try {
       const collection = CollectionSchema.parse(request.body);
       const createCollectionService = new CreateCollection();
-      const result = await createCollectionService.call(collection);
+      const result = await createCollectionService.execute(collection);
       reply.status(201).send(result);
     } catch (error) {
       throw error;
@@ -18,7 +18,7 @@ const routes = async (fastify: FastifyInstance) => {
   fastify.get('/', async (request, reply) => {
     try {
       const listCollectionsService = new ListCollections();
-      const result = await listCollectionsService.call();
+      const result = await listCollectionsService.execute();
 
       reply.status(200).send(result);
     } catch (error) {

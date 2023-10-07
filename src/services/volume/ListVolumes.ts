@@ -1,18 +1,14 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from "../../adapters/prisma-adapter";
 
 //TODO: Add pagination at lists
 class ListVolumes {
-  public async call() {
-    const prisma = new PrismaClient();
+  public async execute() {
 
-    const volumes = await prisma.volume.findMany({
+    return await prisma.volume.findMany({
       include: {
         collection: true
       }
     });
-
-    await prisma.$disconnect();
-    return volumes;
   }
 }
 

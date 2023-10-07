@@ -1,10 +1,8 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from "../../adapters/prisma-adapter";
 import AppError from '../../errors/AppError';
 
 class DeleteVolume {
-  public async call(id: string) {
-    const prisma = new PrismaClient();
-
+  public async execute(id: string) {
     const volume = await prisma.volume.findUnique({
       where: {
         id: id
@@ -14,13 +12,11 @@ class DeleteVolume {
     if (!volume)
       throw new AppError("Volume not found!", 404)
 
-    const deleteVolume = await prisma.volume.delete({
+    return await prisma.volume.delete({
       where: {
         id: id
       }
     });
-    await prisma.$disconnect();
-    return deleteVolume;
   }
 }
 
