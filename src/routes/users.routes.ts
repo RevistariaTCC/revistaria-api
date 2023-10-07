@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify';
-import ListUser from '../services/user/ListUser';
+import ListUsers from '../services/user/ListUsers';
 import GetUserById from '../services/user/GetUserById';
 import { IParams, IBoundCollection } from '../types';
 import DeleteUser from '../services/user/DeleteUser';
@@ -20,7 +20,7 @@ const routes = async (fastify: FastifyInstance) => {
 
   fastify.get("/", async(request, reply) => {
     try {
-      const listUserService = new ListUser();
+      const listUserService = new ListUsers();
       const result = await listUserService.execute();
 
       reply.status(200).send(result);
