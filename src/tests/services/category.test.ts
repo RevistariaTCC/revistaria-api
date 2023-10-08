@@ -17,60 +17,65 @@ describe('Category Services', () => {
 
   describe('CreateCategory()', () => {
     it('Should return the generated category', async () => {
-      prismaAdapter.category.create.mockResolvedValue(category)
+      const spyCreate = prismaAdapter.category.create.mockResolvedValue(category)
       const createCategory = new CreateCategory()
       const result = await createCategory.execute({name: category.name})
   
-  
+      expect(spyCreate).toHaveBeenCalledTimes(1)
       expect(result).toStrictEqual(category)
     })
   })
   
   describe('DeleteCategory()', () => {
     it('Should delete a existing category', async () => {
-        prismaAdapter.category.findUnique.mockResolvedValue(category);
-        prismaAdapter.category.delete.mockResolvedValue(category);
+        const spyFind = prismaAdapter.category.findUnique.mockResolvedValue(category);
+        const spyDelete = prismaAdapter.category.delete.mockResolvedValue(category);
         const deleteCategory = new DeleteCategory();
         const result = await deleteCategory.execute(category.id)
 
+        expect(spyFind).toHaveBeenCalledTimes(1)
+        expect(spyDelete).toHaveBeenCalledTimes(1)
         expect(result).toStrictEqual(category)
     })
 
     it('Should return category not found when id doesnt exists', async () => {
-
-      prismaAdapter.category.delete.mockResolvedValue(category);
+      const spyFind = prismaAdapter.category.findUnique.mockResolvedValue(null);
       const deleteCategory = new DeleteCategory();
 
       await expect(deleteCategory.execute(category.id)).rejects.toThrowError("Category not found!")
+      expect(spyFind).toHaveBeenCalledTimes(1)
     })
   })
 
   describe('ListCategories()', () => {
     it('Should return list of categories', async() =>{
-      prismaAdapter.category.findMany.mockResolvedValue([category]);
+      const spyFind = prismaAdapter.category.findMany.mockResolvedValue([category]);
       const listCategories = new ListCategories();
       const result = await listCategories.execute();
       expect(Array.isArray(result)).toBeTruthy;
       expect(result).toStrictEqual([category]);
+      expect(spyFind).toHaveBeenCalledTimes(1)
     })
   })
 
   describe('UpdateCategory()', () => {
     it('Should return the updated category', async() => {
       const updatedCategory = {...category, name: "Aventura" };
-      prismaAdapter.category.findUnique.mockResolvedValue(category);
-      prismaAdapter.category.update.mockResolvedValue(updatedCategory);
+      const spyFind = prismaAdapter.category.findUnique.mockResolvedValue(category);
+      const spyUpdate = prismaAdapter.category.update.mockResolvedValue(updatedCategory);
       const updateCategory = new UpdateCategory();
       const result = await updateCategory.execute({id: category.id, name: "Aventura"});
       expect(result).toStrictEqual(updatedCategory);
+      expect(spyFind).toHaveBeenCalledTimes(1)
+      expect(spyUpdate).toHaveBeenCalledTimes(1)
     })
 
     it('Should return category not found when id doesnt exists', async () => {
-
-      prismaAdapter.category.update.mockResolvedValue(category);
+      const spyFind = prismaAdapter.category.findUnique.mockResolvedValue(null);
       const updateCategory = new UpdateCategory();
 
       await expect(updateCategory.execute({id: category.id, name: "Aventura"})).rejects.toThrowError("Category not found!")
+      expect(spyFind).toHaveBeenCalledTimes(1)
     })
   })
 

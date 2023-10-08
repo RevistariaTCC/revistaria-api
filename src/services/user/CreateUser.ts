@@ -21,6 +21,7 @@ class CreateUser {
     }
 
     const hashedPassword = await hash(password, 8);
+    console.log('hashed Password:', hashedPassword)
 
     return await prisma.user.create({
       data: {

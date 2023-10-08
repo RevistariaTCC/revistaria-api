@@ -3,11 +3,15 @@ import prisma from "../../adapters/prisma-adapter";
 
 class CreateCategory {
   public async execute({ name }: Category) {
-    return await prisma.category.create({
-      data: {
-        name: name
-      }
-    });
+    try {
+      return await prisma.category.create({
+        data: {
+          name: name
+        }
+      });
+    } catch (error) {
+      throw error
+    }
   }
 }
 

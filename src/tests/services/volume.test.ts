@@ -47,10 +47,11 @@ describe('Volume Services', () => {
     })
 
     it('Should return volume not found when id doesnt exists', async () => {
-
+      const spyFind = prismaAdapter.volume.findUnique.mockResolvedValue(null);
       const deleteVolume = new DeleteVolume();
 
       await expect(deleteVolume.execute(volume.id)).rejects.toThrowError("Volume not found!")
+      expect(spyFind).toHaveBeenCalledTimes(1)
     })
   })
 
@@ -68,10 +69,11 @@ describe('Volume Services', () => {
     })
 
     it('Should return volume not found when id doesnt exists', async () => {
-
+      const spyFind = prismaAdapter.volume.findUnique.mockResolvedValue(null);
       const updateVolume = new UpdateVolume();
 
       await expect(updateVolume.execute({id: volume.id, title: "Volume 02"})).rejects.toThrowError("Volume not found!")
+      expect(spyFind).toHaveBeenCalledTimes(1)
     })
   })
 

@@ -1,17 +1,13 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "../../adapters/prisma-adapter";
 
 class ListNotificationsByUser {
   public async execute(userID: string) {
     try {
-      const prisma = new PrismaClient()
-
-      const result = await prisma.notification.findMany({
+      return await prisma.notification.findMany({
         where: {
           userId: userID
         }
       })
-      await prisma.$disconnect()
-      return result;
     } catch (error) {
       throw error
     }
