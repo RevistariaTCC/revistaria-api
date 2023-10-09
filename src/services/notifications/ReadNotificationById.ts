@@ -1,10 +1,18 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "../../adapters/prisma-adapter";
+import AppError from "../../errors/AppError";
 
 class ReadNotificationById {
   public async execute(id: string) {
     try {
-      const prisma = new PrismaClient()
-      const result = await prisma.notification.update({
+      const notificationFind = await prisma.notification.findUnique({
+        where: {
+          id: id
+        }
+      })
+
+      if(!notificationFind) throw new AppError('Notification not found.', 404);
+
+      return await prisma.notification.update({
         where: {
           id
         },
@@ -12,8 +20,6 @@ class ReadNotificationById {
           status: "READ"
         }
       })
-      await prisma.$disconnect()
-      return result
     } catch (error) {
       throw error
     }

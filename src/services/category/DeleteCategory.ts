@@ -1,10 +1,9 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from "../../adapters/prisma-adapter";
 import AppError from '../../errors/AppError';
 
 class DeleteCategory {
-  public async call(id: string) {
+  public async execute(id: string) {
     try {
-      const prisma = new PrismaClient();
       const category = await prisma.category.findUnique({
         where: {
           id: id
@@ -13,14 +12,11 @@ class DeleteCategory {
 
       if (!category) throw new AppError('Category not found!', 404);
 
-      const deletedCategory = await prisma.category.delete({
+      return await prisma.category.delete({
         where: {
           id: id
         }
       });
-
-      await prisma.$disconnect();
-      return deletedCategory;
     } catch (error) {
       throw error;
     }

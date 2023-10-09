@@ -10,7 +10,7 @@ const routes = async (fastify: FastifyInstance) => {
     try {
       const volume = VolumeSchema.parse(request.body);
       const createVolumeService = new CreateVolume();
-      const result = await createVolumeService.call(volume);
+      const result = await createVolumeService.execute(volume);
       reply.status(201).send(result);
     } catch (error) {
       throw error;
@@ -20,7 +20,7 @@ const routes = async (fastify: FastifyInstance) => {
   fastify.get('/', async (request, reply) => {
     try {
       const listVolumesService = new ListVolumes();
-      const result = await listVolumesService.call();
+      const result = await listVolumesService.execute();
 
       reply.status(200).send(result);
     } catch (error) {
@@ -33,7 +33,7 @@ const routes = async (fastify: FastifyInstance) => {
       const { id } = request.params as { id: string };
 
       const deleteVolume = new DeleteVolume();
-      const result = await deleteVolume.call(id);
+      const result = await deleteVolume.execute(id);
       reply.status(200).send(result);
     } catch (error) {
       throw error;
@@ -46,7 +46,7 @@ const routes = async (fastify: FastifyInstance) => {
 
       const volume = VolumeSchema.partial().parse(request.body);
       const updateVolume = new UpdateVolume();
-      const result = await updateVolume.call({ id, ...volume });
+      const result = await updateVolume.execute({ id, ...volume });
       reply.status(200).send(result);
     } catch (error) {
       throw error;

@@ -1,5 +1,5 @@
 
-import { PrismaClient } from '@prisma/client';
+import prisma from "../../adapters/prisma-adapter";
 import { User } from '../../schemas/user';
 import AppError from '../../errors/AppError';
 import { hash } from 'bcryptjs';
@@ -8,7 +8,7 @@ import { hash } from 'bcryptjs';
 class CreateUser {
   public async execute(params: User) {
     const {email, name, password, phone} = params
-    const prisma = new PrismaClient();
+
     
     const checkUserExist = await prisma.user.findFirst({
       where: {
@@ -21,8 +21,9 @@ class CreateUser {
     }
 
     const hashedPassword = await hash(password, 8);
+    console.log('hashed Password:', hashedPassword)
 
-    const user = await prisma.user.create({
+    return await prisma.user.create({
       data: {
         passwordHash: hashedPassword,
         email,
@@ -30,9 +31,6 @@ class CreateUser {
         phone
       }
     });
-
-    await prisma.$disconnect();
-    return user;
   }
 }
 

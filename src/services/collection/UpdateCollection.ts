@@ -1,12 +1,11 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from "../../adapters/prisma-adapter";
 import AppError from '../../errors/AppError';
 import { PartialCollection } from '../../schemas/collection';
 
 class UpdateCollection {
-  public async call(params: PartialCollection) {
+  public async execute(params: PartialCollection) {
     try {
       const { id, categories, ...rest } = params;
-      const prisma = new PrismaClient();
       const collection = await prisma.collection.findUnique({
         where: {
           id: id
@@ -15,7 +14,7 @@ class UpdateCollection {
 
       if (!collection) throw new AppError('Collection not found!', 404);
 
-      const updatedCollection = await prisma.collection.update({
+      return await prisma.collection.update({
         where: {
           id: id
         },
@@ -27,8 +26,6 @@ class UpdateCollection {
         }
       });
 
-      await prisma.$disconnect();
-      return updatedCollection;
     } catch (error) {
       throw error;
     }

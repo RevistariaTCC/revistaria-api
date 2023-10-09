@@ -1,25 +1,27 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from "../../adapters/prisma-adapter";
 import AppError from '../../errors/AppError';
 
 class GetUserById {
   public async execute(id: string){
-    const prisma = new PrismaClient();
-    const user = await prisma.user.findUnique({
-      where: {
-        id
-      },
-      include: {
-        interests: true,
-        collections: true,
-      },
-    });
+    try {
+      const user = await prisma.user.findUnique({
+        where: {
+          id
+        },
+        include: {
+          interests: true,
+          collections: true,
+        },
+      });
+  
+      if (!user) {
+        throw new AppError('User not found.', 404);
+      }
+      return user;
 
-    if (!user) {
-      throw new AppError('User not found.', 404);
+    } catch (error) {
+      throw error;
     }
-
-    await prisma.$disconnect();
-    return user;
   }
 }
 

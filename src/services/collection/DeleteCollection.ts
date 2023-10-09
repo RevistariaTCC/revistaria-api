@@ -1,10 +1,9 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from "../../adapters/prisma-adapter";
 import AppError from '../../errors/AppError';
 
 class DeleteCollection {
-  public async call(id: string) {
+  public async execute(id: string) {
     try {
-      const prisma = new PrismaClient();
       const collection = await prisma.collection.findUnique({
         where: {
           id: id
@@ -13,14 +12,11 @@ class DeleteCollection {
 
       if (!collection) throw new AppError('Collection not found!', 404);
 
-      const deletedCollection = await prisma.collection.delete({
+      return await prisma.collection.delete({
         where: {
           id: id
         }
       });
-
-      await prisma.$disconnect();
-      return deletedCollection;
     } catch (error) {
       throw error;
     }

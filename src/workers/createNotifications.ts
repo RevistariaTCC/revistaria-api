@@ -1,4 +1,5 @@
-import { PrismaClient } from "@prisma/client"
+import prisma from "../adapters/prisma-adapter";
+
 
 interface IJob {
   data: {
@@ -11,8 +12,6 @@ interface IJob {
 }
 
 export const createNotifications = async (job: IJob) => {
-  const prisma = new PrismaClient();
-
 
   const nameAndUserIds = await prisma.collection.findUnique({
     select: {

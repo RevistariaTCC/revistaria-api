@@ -1,27 +1,26 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "../../adapters/prisma-adapter";
 import AppError from "../../errors/AppError";
 class DeleteUser {
   public async execute(id: string) {
-    const prisma = new PrismaClient();
-
-    const userFinded = await prisma.user.findUnique({
-      where: {
-        id
-      }
-    });
-  
-    if(!userFinded) {
-      throw new AppError('User not found.', 404);
-    }
+    try {
+      const userFinded = await prisma.user.findUnique({
+        where: {
+          id
+        }
+      });
     
-    const user = await prisma.user.delete({
-      where: {
-        id
+      if(!userFinded) {
+        throw new AppError('User not found.', 404);
       }
-    })
-
-    await prisma.$disconnect();
-    return user;
+      
+      return await prisma.user.delete({
+        where: {
+          id
+        }
+      }) 
+    } catch (error) {
+      throw error
+    }
   }
 }
 

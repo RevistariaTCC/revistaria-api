@@ -1,10 +1,9 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "../../adapters/prisma-adapter";
 
 class ReadAllNotificationsByUser {
   public async execute(userID: string) {
     try {
-      const prisma = new PrismaClient();
-      await prisma.notification.updateMany({
+      return await prisma.notification.updateMany({
         data: {
           status: "READ"
         },
@@ -13,7 +12,6 @@ class ReadAllNotificationsByUser {
         }
       })
 
-      await prisma.$disconnect()
     } catch (error) {
       throw error
     }
