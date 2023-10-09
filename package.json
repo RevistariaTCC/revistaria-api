@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "tsup ./src",
-    "start": "node dist/server.ts",
+    "start": "node dist/server.js",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
     "dev": "tsx watch ./src/server.ts",
