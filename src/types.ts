@@ -8,5 +8,5 @@ export interface IBodySession {
 }
 
 export interface IBoundCollection {
-  collectionID: string
+  collectionID: string;
 }

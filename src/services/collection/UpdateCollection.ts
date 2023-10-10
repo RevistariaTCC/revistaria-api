@@ -1,4 +1,4 @@
-import prisma from "../../adapters/prisma-adapter";
+import prisma from '../../adapters/prisma-adapter';
 import AppError from '../../errors/AppError';
 import { PartialCollection } from '../../schemas/collection';
 
@@ -25,7 +25,6 @@ class UpdateCollection {
           ...rest
         }
       });
-
     } catch (error) {
       throw error;
     }

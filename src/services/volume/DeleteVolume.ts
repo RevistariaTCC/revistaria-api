@@ -1,4 +1,4 @@
-import prisma from "../../adapters/prisma-adapter";
+import prisma from '../../adapters/prisma-adapter';
 import AppError from '../../errors/AppError';
 
 class DeleteVolume {
@@ -7,10 +7,9 @@ class DeleteVolume {
       where: {
         id: id
       }
-    })
+    });
 
-    if (!volume)
-      throw new AppError("Volume not found!", 404)
+    if (!volume) throw new AppError('Volume not found!', 404);
 
     return await prisma.volume.delete({
       where: {

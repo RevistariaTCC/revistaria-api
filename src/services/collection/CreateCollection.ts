@@ -1,4 +1,4 @@
-import prisma from "../../adapters/prisma-adapter";
+import prisma from '../../adapters/prisma-adapter';
 import { Collection } from '../../schemas/collection';
 
 class CreateCollection {
@@ -13,7 +13,6 @@ class CreateCollection {
         ...rest
       }
     });
-
   }
 }
 

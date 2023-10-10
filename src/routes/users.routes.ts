@@ -11,37 +11,35 @@ import { InterestSchema } from '../schemas/userInterests';
 import LinkCollection from '../services/user/LinkCollection';
 
 const routes = async (fastify: FastifyInstance) => {
-
   fastify.addHook('onSend', (request, reply, payload: string, done) => {
-    const newPayload = JSON.parse(payload)
-    delete newPayload.passwordHash
-    done(null, JSON.stringify(newPayload))
-  })
+    const newPayload = JSON.parse(payload);
+    delete newPayload.passwordHash;
+    done(null, JSON.stringify(newPayload));
+  });
 
-  fastify.get("/", async(request, reply) => {
+  fastify.get('/', async (request, reply) => {
     try {
       const listUserService = new ListUsers();
       const result = await listUserService.execute();
 
       reply.status(200).send(result);
-
     } catch (error) {
       throw error;
     }
-  })
+  });
 
-  fastify.get<{Params: IParams}>("/:id", async(request, reply) => {
+  fastify.get<{ Params: IParams }>('/:id', async (request, reply) => {
     try {
-      const { id } = request.params
+      const { id } = request.params;
       const getUserById = new GetUserById();
       const result = await getUserById.execute(id);
       reply.status(200).send(result);
     } catch (error) {
       throw error;
     }
-  })
+  });
 
-  fastify.post('/', async(request, reply) => {
+  fastify.post('/', async (request, reply) => {
     try {
       const user = UserSchema.parse(request.body);
       const createUserService = new CreateUser();
@@ -52,71 +50,87 @@ const routes = async (fastify: FastifyInstance) => {
     }
   });
 
-  fastify.delete<{Params: IParams}>("/:id", async(request, reply) => {
+  fastify.delete<{ Params: IParams }>('/:id', async (request, reply) => {
     try {
-      const { id } = request.params
+      const { id } = request.params;
       const deleteUser = new DeleteUser();
       await deleteUser.execute(id);
 
-      reply.status(200).send("User deleted with success!");
+      reply.status(200).send('User deleted with success!');
     } catch (error) {
       throw error;
     }
-  })
+  });
 
-  fastify.put('/link-interests', { onRequest: [fastify.authenticate]}, async(request, reply) => {
-    try {
-      const categoryIDs = InterestSchema.parse(request.body)
-      const linkInterests = new LinkInterests();
-      const user  = request.user as User
-      const result = await linkInterests.connect({user, categoryIDs})
-      reply.status(200).send(result);
-    } catch (error) {
-      throw error
+  fastify.put(
+    '/link-interests',
+    { onRequest: [fastify.authenticate] },
+    async (request, reply) => {
+      try {
+        const categoryIDs = InterestSchema.parse(request.body);
+        const linkInterests = new LinkInterests();
+        const user = request.user as User;
+        const result = await linkInterests.connect({ user, categoryIDs });
+        reply.status(200).send(result);
+      } catch (error) {
+        throw error;
+      }
     }
-  })
+  );
 
-  fastify.put('/unlink-interests', { onRequest: [fastify.authenticate]}, async(request, reply) => {
-    try {
-      const categoryIDs = InterestSchema.parse(request.body)
-      const linkInterests = new LinkInterests();
-      const user  = request.user as User
-      const result = await linkInterests.disconnect({user, categoryIDs})
-      reply.status(200).send(result);
-    } catch (error) {
-      throw error
+  fastify.put(
+    '/unlink-interests',
+    { onRequest: [fastify.authenticate] },
+    async (request, reply) => {
+      try {
+        const categoryIDs = InterestSchema.parse(request.body);
+        const linkInterests = new LinkInterests();
+        const user = request.user as User;
+        const result = await linkInterests.disconnect({ user, categoryIDs });
+        reply.status(200).send(result);
+      } catch (error) {
+        throw error;
+      }
     }
-  })
+  );
 
-  fastify.put<{Params: IBoundCollection}>('/link-collection/:collectionID', { onRequest: [fastify.authenticate]}, async(request, reply) => {
-    try {
-      const { collectionID } = request.params;
-      const user  = request.user as User
-  
-      const linkCollection = new LinkCollection();
-  
-      const result = await linkCollection.connect({collectionID, user});
-  
-      reply.status(200).send(result);
-    } catch (error) {
-      throw error
-    }
-  })
+  fastify.put<{ Params: IBoundCollection }>(
+    '/link-collection/:collectionID',
+    { onRequest: [fastify.authenticate] },
+    async (request, reply) => {
+      try {
+        const { collectionID } = request.params;
+        const user = request.user as User;
 
-  fastify.put<{Params: IBoundCollection}>('/unlink-collection/:collectionID', { onRequest: [fastify.authenticate]}, async(request, reply) => {
-    try {
-      const { collectionID } = request.params;
-      const user  = request.user as User
-  
-      const linkCollection = new LinkCollection();
-  
-      const result = await linkCollection.disconnect({collectionID, user});
-  
-      reply.status(200).send(result);
-    } catch (error) {
-      throw error
+        const linkCollection = new LinkCollection();
+
+        const result = await linkCollection.connect({ collectionID, user });
+
+        reply.status(200).send(result);
+      } catch (error) {
+        throw error;
+      }
     }
-  })
+  );
+
+  fastify.put<{ Params: IBoundCollection }>(
+    '/unlink-collection/:collectionID',
+    { onRequest: [fastify.authenticate] },
+    async (request, reply) => {
+      try {
+        const { collectionID } = request.params;
+        const user = request.user as User;
+
+        const linkCollection = new LinkCollection();
+
+        const result = await linkCollection.disconnect({ collectionID, user });
+
+        reply.status(200).send(result);
+      } catch (error) {
+        throw error;
+      }
+    }
+  );
 };
 
 export default routes;

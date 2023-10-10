@@ -1,5 +1,5 @@
-import prisma from "../../adapters/prisma-adapter";
-import AppError from "../../errors/AppError";
+import prisma from '../../adapters/prisma-adapter';
+import AppError from '../../errors/AppError';
 
 class ReadNotificationById {
   public async execute(id: string) {
@@ -8,20 +8,20 @@ class ReadNotificationById {
         where: {
           id: id
         }
-      })
+      });
 
-      if(!notificationFind) throw new AppError('Notification not found.', 404);
+      if (!notificationFind) throw new AppError('Notification not found.', 404);
 
       return await prisma.notification.update({
         where: {
           id
         },
         data: {
-          status: "READ"
+          status: 'READ'
         }
-      })
+      });
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 }

@@ -1,4 +1,4 @@
-import prisma from "../../adapters/prisma-adapter";
+import prisma from '../../adapters/prisma-adapter';
 import { PartialVolume } from '../../schemas/volume';
 import AppError from '../../errors/AppError';
 
@@ -11,9 +11,9 @@ class UpdateVolume {
       where: {
         id: id
       }
-    })
+    });
 
-    if (!volume) throw new AppError("Volume not found!", 404)
+    if (!volume) throw new AppError('Volume not found!', 404);
 
     return await prisma.volume.update({
       where: {

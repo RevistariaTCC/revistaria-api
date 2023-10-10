@@ -1,5 +1,5 @@
-import prisma from "../../adapters/prisma-adapter";
-import AppError from "../../errors/AppError";
+import prisma from '../../adapters/prisma-adapter';
+import AppError from '../../errors/AppError';
 class DeleteUser {
   public async execute(id: string) {
     try {
@@ -8,18 +8,18 @@ class DeleteUser {
           id
         }
       });
-    
-      if(!userFinded) {
+
+      if (!userFinded) {
         throw new AppError('User not found.', 404);
       }
-      
+
       return await prisma.user.delete({
         where: {
           id
         }
-      }) 
+      });
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 }

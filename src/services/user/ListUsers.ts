@@ -1,21 +1,19 @@
-import prisma from "../../adapters/prisma-adapter";
+import prisma from '../../adapters/prisma-adapter';
 
 class ListUsers {
-  public async execute(){
+  public async execute() {
     try {
-      
-    return await prisma.user.findMany({
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        phone: true,
-        passwordHash: false,
-      }
-    });
-
+      return await prisma.user.findMany({
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          phone: true,
+          passwordHash: false
+        }
+      });
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 }

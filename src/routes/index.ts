@@ -9,25 +9,27 @@ import sessionsRoutes from './sessions.routes';
 import authConfig from '../config/auth';
 
 const routes = async (fastify: FastifyInstance) => {
-
   fastify.register(fastifyJwt, {
     secret: authConfig.jwt.secret
-  })
+  });
 
-  fastify.decorate("authenticate", async (request: FastifyRequest, reply: FastifyReply) => {
-    try {
-      await request.jwtVerify()
-    } catch (err) {
-      reply.send(err)
+  fastify.decorate(
+    'authenticate',
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      try {
+        await request.jwtVerify();
+      } catch (err) {
+        reply.send(err);
+      }
     }
-  })
+  );
 
-  fastify.register(userRoutes, {prefix: '/users'} );
+  fastify.register(userRoutes, { prefix: '/users' });
   fastify.register(categoriesRoutes, { prefix: '/categories' });
   fastify.register(collectionsRoutes, { prefix: '/collections' });
-  fastify.register(notificationRoutes, {prefix: '/notifications'} );
+  fastify.register(notificationRoutes, { prefix: '/notifications' });
   fastify.register(volumesRoutes, { prefix: '/volumes' });
-  fastify.register(sessionsRoutes, {prefix: '/sessions'})
+  fastify.register(sessionsRoutes, { prefix: '/sessions' });
 };
 
 export default routes;
