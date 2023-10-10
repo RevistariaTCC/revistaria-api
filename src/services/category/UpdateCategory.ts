@@ -1,4 +1,4 @@
-import prisma from "../../adapters/prisma-adapter";
+import prisma from '../../adapters/prisma-adapter';
 import { PartialCategory } from '../../schemas/category';
 import AppError from '../../errors/AppError';
 
@@ -20,7 +20,6 @@ class UpdateCategory {
         },
         data: { ...rest }
       });
-
     } catch (error) {
       throw error;
     }

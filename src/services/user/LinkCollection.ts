@@ -1,23 +1,21 @@
-import { User } from "@prisma/client"
-import AppError from "../../errors/AppError";
-import prisma from "../../adapters/prisma-adapter";
-
+import { User } from '@prisma/client';
+import AppError from '../../errors/AppError';
+import prisma from '../../adapters/prisma-adapter';
 
 interface IRequest {
-  collectionID: string,
-  user: User
+  collectionID: string;
+  user: User;
 }
 
 class LinkCollection {
-  
-  public async connect({collectionID, user}: IRequest) {
+  public async connect({ collectionID, user }: IRequest) {
     try {
       const findUser = await prisma.user.findUnique({
         where: {
           id: user.id
         }
       });
-  
+
       if (!findUser) {
         throw new AppError('User not found.', 404);
       }
@@ -28,27 +26,26 @@ class LinkCollection {
         },
         data: {
           collections: {
-            connect: {id: collectionID}
+            connect: { id: collectionID }
           }
         },
         include: {
           collections: true
         }
-      })
+      });
     } catch (error) {
       throw error;
     }
   }
 
-  public async disconnect({collectionID, user}: IRequest) {
+  public async disconnect({ collectionID, user }: IRequest) {
     try {
-
       const findUser = await prisma.user.findUnique({
         where: {
           id: user.id
         }
       });
-  
+
       if (!findUser) {
         throw new AppError('User not found.', 404);
       }
@@ -59,13 +56,13 @@ class LinkCollection {
         },
         data: {
           collections: {
-            disconnect: {id: collectionID}
+            disconnect: { id: collectionID }
           }
         },
         include: {
           collections: true
         }
-      })
+      });
     } catch (error) {
       throw error;
     }

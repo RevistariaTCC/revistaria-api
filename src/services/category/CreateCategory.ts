@@ -1,5 +1,5 @@
 import { Category } from '../../schemas/category';
-import prisma from "../../adapters/prisma-adapter";
+import prisma from '../../adapters/prisma-adapter';
 
 class CreateCategory {
   public async execute({ name }: Category) {
@@ -10,10 +10,9 @@ class CreateCategory {
         }
       });
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 }
 
 export default CreateCategory;
- 

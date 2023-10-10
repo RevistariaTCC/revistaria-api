@@ -5,72 +5,84 @@ import ReadAllNotificationsByUser from '../../services/notifications/ReadAllNoti
 import ReadNotificationById from '../../services/notifications/ReadNotificationById';
 import { NotificationStatus, NotificationType } from '@prisma/client';
 
-vi.mock("../../adapters/prisma-adapter.ts");
+vi.mock('../../adapters/prisma-adapter.ts');
 
 describe('Notification services', () => {
   const notifications = [
     {
-      id: "uuid-test-1",
+      id: 'uuid-test-1',
       createdAt: new Date(),
       updatedAt: new Date(),
-      title: "Uma novidade acabou de chegar!",
-      text: "A coleção Jujutsu Kaisen acaba de receber a adição de Volume 09",
+      title: 'Uma novidade acabou de chegar!',
+      text: 'A coleção Jujutsu Kaisen acaba de receber a adição de Volume 09',
       status: NotificationStatus.UNREAD,
       type: NotificationType.NEW_VOLUME,
-      userId: "uuid-test-2"
+      userId: 'uuid-test-2'
     }
-  ]
+  ];
 
   describe('ListNotificationsByUser()', () => {
-    it('Should return a list of notifications by user', async() => {
-      const spy = prismaAdapter.notification.findMany.mockResolvedValue(notifications)
+    it('Should return a list of notifications by user', async () => {
+      const spy =
+        prismaAdapter.notification.findMany.mockResolvedValue(notifications);
       const listNotificationsByUser = new ListNotificationsByUser();
-      const result = await listNotificationsByUser.execute("uuid-test-2")
+      const result = await listNotificationsByUser.execute('uuid-test-2');
 
-      expect(result).toStrictEqual(notifications)
-      expect(spy).toHaveBeenCalledTimes(1)
-    })
-  })
+      expect(result).toStrictEqual(notifications);
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
   describe('ReadAllNotificationsByUser()', () => {
-    it('Should update all user notifications to read status', async() => {
-      const spy = prismaAdapter.notification.updateMany.mockResolvedValue({count: 1})
+    it('Should update all user notifications to read status', async () => {
+      const spy = prismaAdapter.notification.updateMany.mockResolvedValue({
+        count: 1
+      });
       const readAllNotificationsByUser = new ReadAllNotificationsByUser();
-      const result = await readAllNotificationsByUser.execute("uuid-test-2")
-  
-      expect(result).toStrictEqual({count: 1})
-      expect(spy).toHaveBeenCalledTimes(1)
-    })
+      const result = await readAllNotificationsByUser.execute('uuid-test-2');
 
-  })
+      expect(result).toStrictEqual({ count: 1 });
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
   describe('ReadNotificationById()', () => {
     const notification = {
-      id: "uuid-test-1",
+      id: 'uuid-test-1',
       createdAt: new Date(),
       updatedAt: new Date(),
-      title: "Uma novidade acabou de chegar!",
-      text: "A coleção Jujutsu Kaisen acaba de receber a adição de Volume 09",
+      title: 'Uma novidade acabou de chegar!',
+      text: 'A coleção Jujutsu Kaisen acaba de receber a adição de Volume 09',
       status: NotificationStatus.UNREAD,
       type: NotificationType.NEW_VOLUME,
-      userId: "uuid-test-2"
-    }
+      userId: 'uuid-test-2'
+    };
 
-    it('Should update specific notification', async() => {
-      const updatedNotification = {...notification, status: NotificationStatus.READ}
-      const spyUpdate = prismaAdapter.notification.update.mockResolvedValue(updatedNotification)
-      const spyFind = prismaAdapter.notification.findUnique.mockResolvedValue(notification);
+    it('Should update specific notification', async () => {
+      const updatedNotification = {
+        ...notification,
+        status: NotificationStatus.READ
+      };
+      const spyUpdate =
+        prismaAdapter.notification.update.mockResolvedValue(
+          updatedNotification
+        );
+      const spyFind =
+        prismaAdapter.notification.findUnique.mockResolvedValue(notification);
       const readNotificationById = new ReadNotificationById();
-      const result = await readNotificationById.execute("uuid-test-1")
-  
-      expect(result).toStrictEqual(updatedNotification)
-      expect(spyUpdate).toHaveBeenCalledTimes(1)
-      expect(spyFind).toHaveBeenCalledTimes(1)
-    })
+      const result = await readNotificationById.execute('uuid-test-1');
 
-    it('Should return notification not found when id doesnt exists', async() => {
-      const spyFind = prismaAdapter.notification.findUnique.mockResolvedValue(null);
+      expect(result).toStrictEqual(updatedNotification);
+      expect(spyUpdate).toHaveBeenCalledTimes(1);
+      expect(spyFind).toHaveBeenCalledTimes(1);
+    });
+
+    it('Should return notification not found when id doesnt exists', async () => {
+      const spyFind =
+        prismaAdapter.notification.findUnique.mockResolvedValue(null);
       const readNotificationById = new ReadNotificationById();
-      await expect(readNotificationById.execute("uuid-test-1")).rejects.toThrowError("Notification not found.")
-      expect(spyFind).toHaveBeenCalledTimes(1)
-    })
-  })
-})
+      await expect(
+        readNotificationById.execute('uuid-test-1')
+      ).rejects.toThrowError('Notification not found.');
+      expect(spyFind).toHaveBeenCalledTimes(1);
+    });
+  });
+});

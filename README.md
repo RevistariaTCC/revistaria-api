@@ -26,6 +26,7 @@ vazio, e copie o conteudo do .env.example
 Complete as informações com os valores corretos e após isso prossiga para as próximas configurações
 
 É necessário criar a imagem do container e realizar a instalação dos pacotes NPM, através dos comandos:
+
 - `docker-compose up server --build`
 
 ### Rodando o ambiente
@@ -33,7 +34,6 @@ Complete as informações com os valores corretos e após isso prossiga para as 
 Para executar o container do ambiente de desenvolvimento, execute o comando:
 
 `docker-compose up server`
-
 
 O serviço ficará disponível em [http://localhost:4000](http://localhost:4000)
 
@@ -54,8 +54,9 @@ inserção de dados
 ### Rodando o prisma
 
 Ao subir o ambiente utilizando o comando
+
 - `npm run dev:prisma`
-automaticamente o prisma será executado (Interface para o banco de dados)
+  automaticamente o prisma será executado (Interface para o banco de dados)
 
 O serviço ficará disponível em [http://localhost:5555](http://localhost:5555)
 
@@ -64,6 +65,7 @@ O serviço ficará disponível em [http://localhost:5555](http://localhost:5555)
 O ambiente de testes foi configurado em um container separado do ambiente de desenvolvimento.
 
 Semelhante ao ambiente de desenvolvimento, é necessário criar a imagem do container, através dos comandos:
+
 - `docker-compose build test`
 
 Para executar os testes, execute o comando:

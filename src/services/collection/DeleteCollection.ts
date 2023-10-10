@@ -1,4 +1,4 @@
-import prisma from "../../adapters/prisma-adapter";
+import prisma from '../../adapters/prisma-adapter';
 import AppError from '../../errors/AppError';
 
 class DeleteCollection {

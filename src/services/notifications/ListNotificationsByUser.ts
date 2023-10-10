@@ -1,4 +1,4 @@
-import prisma from "../../adapters/prisma-adapter";
+import prisma from '../../adapters/prisma-adapter';
 
 class ListNotificationsByUser {
   public async execute(userID: string) {
@@ -7,9 +7,9 @@ class ListNotificationsByUser {
         where: {
           userId: userID
         }
-      })
+      });
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 }
