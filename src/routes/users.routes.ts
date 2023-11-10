@@ -14,6 +14,9 @@ const routes = async (fastify: FastifyInstance) => {
   fastify.addHook('onSend', (request, reply, payload: string, done) => {
     const newPayload = JSON.parse(payload);
     delete newPayload.passwordHash;
+    if('result' in newPayload) {
+      delete newPayload.result.passwordHash
+    }
     done(null, JSON.stringify(newPayload));
   });
 
@@ -44,7 +47,8 @@ const routes = async (fastify: FastifyInstance) => {
       const user = UserSchema.parse(request.body);
       const createUserService = new CreateUser();
       const result: PartialUser = await createUserService.execute(user);
-      reply.status(201).send(result);
+      const token = fastify.jwt.sign(user);
+      reply.status(201).send({ result, token });
     } catch (error) {
       throw error;
     }
