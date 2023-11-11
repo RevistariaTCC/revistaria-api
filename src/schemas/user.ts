@@ -10,7 +10,7 @@ const UserSchema = z.object({
   passwordHash: z.string().optional(),
   collections: z.string().array().optional(),
   interests: z.string().array().optional(),
-  newsletter: z.boolean(),
+  newsletter: z.boolean()
 });
 
 const UpdateSchema = UserSchema.partial();

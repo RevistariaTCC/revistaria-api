@@ -14,8 +14,8 @@ const routes = async (fastify: FastifyInstance) => {
   fastify.addHook('onSend', (request, reply, payload: string, done) => {
     const newPayload = JSON.parse(payload);
     delete newPayload.passwordHash;
-    if('result' in newPayload) {
-      delete newPayload.result.passwordHash
+    if ('result' in newPayload) {
+      delete newPayload.result.passwordHash;
     }
     done(null, JSON.stringify(newPayload));
   });

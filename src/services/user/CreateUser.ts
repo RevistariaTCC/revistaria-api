@@ -25,7 +25,7 @@ class CreateUser {
         email,
         name,
         phone,
-        birthdate, 
+        birthdate,
         newsletter
       }
     });

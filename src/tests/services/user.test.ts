@@ -21,7 +21,7 @@ describe('User Services', () => {
     createdAt: new Date(),
     updatedAt: new Date(),
     birthdate: new Date(),
-    newsletter: false,
+    newsletter: false
   };
 
   describe('CreateUser()', () => {
@@ -31,7 +31,7 @@ describe('User Services', () => {
       const createUser = new CreateUser();
       const result = await createUser.execute(user);
 
-      expect(spyFind).toHaveBeenCalledTimes(1); 
+      expect(spyFind).toHaveBeenCalledTimes(1);
       expect(spyCreate).toHaveBeenCalledTimes(1);
       expect(result).toStrictEqual(result);
     });
@@ -99,7 +99,7 @@ describe('User Services', () => {
       createdAt: new Date(),
       updatedAt: new Date(),
       birthdate: new Date(),
-      newsletter: false,
+      newsletter: false
     };
 
     const updatedUser = {
@@ -179,7 +179,7 @@ describe('User Services', () => {
       createdAt: new Date(),
       updatedAt: new Date(),
       birthdate: new Date(),
-      newsletter: false,
+      newsletter: false
     };
 
     const updatedUser = {
