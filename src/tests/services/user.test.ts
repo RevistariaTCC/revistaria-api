@@ -19,7 +19,9 @@ describe('User Services', () => {
     password: 'test123',
     passwordHash: 'test123',
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
+    birthdate: new Date(),
+    newsletter: false
   };
 
   describe('CreateUser()', () => {
@@ -95,7 +97,9 @@ describe('User Services', () => {
       phone: '41999999999',
       passwordHash: 'test123',
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
+      birthdate: new Date(),
+      newsletter: false
     };
 
     const updatedUser = {
@@ -173,7 +177,9 @@ describe('User Services', () => {
       phone: '41999999999',
       passwordHash: 'test123',
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
+      birthdate: new Date(),
+      newsletter: false
     };
 
     const updatedUser = {

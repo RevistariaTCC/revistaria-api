@@ -59,6 +59,8 @@ model User {
   collections   Collection[]
   notifications Notification[]
   interests Category[]
+  birthdate DateTime
+  newsletter Boolean
 }
 
 model Notification {
