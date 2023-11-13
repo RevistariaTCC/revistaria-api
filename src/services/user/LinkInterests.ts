@@ -13,12 +13,29 @@ class LinkInterests {
       const findUser = await prisma.user.findUnique({
         where: {
           id: user.id
+        },
+        include: {
+          interests: true
         }
       });
 
       if (!findUser) {
         throw new AppError('User not found.', 404);
       }
+
+      const oldInterests = findUser.interests ?? [];
+      await prisma.user.update({
+        where: {
+          id: user.id
+        },
+        data: {
+          interests: {
+            disconnect: oldInterests.map((interest) => ({
+              id: interest.id
+            }))
+          }
+        }
+      });
 
       return await prisma.user.update({
         where: {

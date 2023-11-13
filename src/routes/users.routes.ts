@@ -3,12 +3,13 @@ import ListUsers from '../services/user/ListUsers';
 import GetUserById from '../services/user/GetUserById';
 import { IParams, IBoundCollection } from '../types';
 import DeleteUser from '../services/user/DeleteUser';
-import UserSchema, { PartialUser } from '../schemas/user';
+import UserSchema, { PartialUser, UpdateSchema } from '../schemas/user';
 import CreateUser from '../services/user/CreateUser';
 import LinkInterests from '../services/user/LinkInterests';
 import { User } from '@prisma/client';
 import { InterestSchema } from '../schemas/userInterests';
 import LinkCollection from '../services/user/LinkCollection';
+import UpdateUser from '../services/user/UpdateUser';
 
 const routes = async (fastify: FastifyInstance) => {
   fastify.addHook('onSend', (request, reply, payload: string, done) => {
@@ -54,17 +55,37 @@ const routes = async (fastify: FastifyInstance) => {
     }
   });
 
-  fastify.delete<{ Params: IParams }>('/:id', async (request, reply) => {
-    try {
-      const { id } = request.params;
-      const deleteUser = new DeleteUser();
-      await deleteUser.execute(id);
+  fastify.delete<{ Params: IParams }>(
+    '/:id',
+    { onRequest: [fastify.authenticate] },
+    async (request, reply) => {
+      try {
+        const { id } = request.params;
+        const deleteUser = new DeleteUser();
+        await deleteUser.execute(id);
 
-      reply.status(200).send('User deleted with success!');
-    } catch (error) {
-      throw error;
+        reply.status(200).send('User deleted with success!');
+      } catch (error) {
+        throw error;
+      }
     }
-  });
+  );
+
+  fastify.put<{ Params: IParams }>(
+    '/',
+    { onRequest: [fastify.authenticate] },
+    async (request, reply) => {
+      try {
+        const user = request.user as User;
+        const updateData = UpdateSchema.parse(request.body);
+        const updateUser = new UpdateUser();
+        const result = await updateUser.execute({ user, data: updateData });
+        reply.status(200).send(result);
+      } catch (error) {
+        throw error;
+      }
+    }
+  );
 
   fastify.put(
     '/link-interests',

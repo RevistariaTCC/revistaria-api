@@ -202,7 +202,7 @@ describe('User Services', () => {
         user
       });
 
-      expect(spyUpdate).toHaveBeenCalledTimes(1);
+      expect(spyUpdate).toHaveBeenCalledTimes(2);
       expect(spyFind).toHaveBeenCalledTimes(1);
       expect(result).toStrictEqual(updatedUser);
     });

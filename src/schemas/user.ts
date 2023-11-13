@@ -13,7 +13,7 @@ const UserSchema = z.object({
   newsletter: z.boolean()
 });
 
-const UpdateSchema = UserSchema.partial();
+export const UpdateSchema = UserSchema.partial();
 
 export type PartialUser = z.infer<typeof UpdateSchema>;
 

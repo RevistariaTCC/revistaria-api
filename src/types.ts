@@ -10,3 +10,7 @@ export interface IBodySession {
 export interface IBoundCollection {
   collectionID: string;
 }
+
+export interface iQuery {
+  search: string;
+}
