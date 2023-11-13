@@ -16,9 +16,9 @@ const routes = async (fastify: FastifyInstance) => {
     }
   });
 
-  fastify.get<{Querystring: iQuery}>('/', async (request, reply) => {
+  fastify.get<{ Querystring: iQuery }>('/', async (request, reply) => {
     try {
-      const { search } = request.query
+      const { search } = request.query;
       const listCollectionsService = new ListCollections();
       const result = await listCollectionsService.execute(search);
       reply.status(200).send(result);
@@ -26,7 +26,6 @@ const routes = async (fastify: FastifyInstance) => {
       throw error;
     }
   });
-
 };
 
 export default routes;

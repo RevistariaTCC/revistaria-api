@@ -1,16 +1,15 @@
 import { User } from '@prisma/client';
-import { PartialUser } from '../../schemas/user'
+import { PartialUser } from '../../schemas/user';
 import prisma from '../../adapters/prisma-adapter';
 import AppError from '../../errors/AppError';
 
-
-type iPartialUser = Omit<Omit<PartialUser, "collections">, "interests">
+type iPartialUser = Omit<Omit<PartialUser, 'collections'>, 'interests'>;
 interface iRequest {
   user: User;
-  data: iPartialUser
+  data: iPartialUser;
 }
 class UpdateUser {
-  public async execute({user, data}: iRequest) {
+  public async execute({ user, data }: iRequest) {
     try {
       const userFinded = await prisma.user.findUnique({
         where: {
@@ -27,7 +26,7 @@ class UpdateUser {
           id: user.id
         },
         data: data
-      })
+      });
     } catch (error) {
       throw error;
     }

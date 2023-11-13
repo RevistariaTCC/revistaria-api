@@ -55,29 +55,37 @@ const routes = async (fastify: FastifyInstance) => {
     }
   });
 
-  fastify.delete<{ Params: IParams }>('/:id', { onRequest: [fastify.authenticate] }, async (request, reply) => {
-    try {
-      const { id } = request.params;
-      const deleteUser = new DeleteUser();
-      await deleteUser.execute(id);
+  fastify.delete<{ Params: IParams }>(
+    '/:id',
+    { onRequest: [fastify.authenticate] },
+    async (request, reply) => {
+      try {
+        const { id } = request.params;
+        const deleteUser = new DeleteUser();
+        await deleteUser.execute(id);
 
-      reply.status(200).send('User deleted with success!');
-    } catch (error) {
-      throw error;
+        reply.status(200).send('User deleted with success!');
+      } catch (error) {
+        throw error;
+      }
     }
-  });
+  );
 
-  fastify.put<{ Params: IParams }>('/', { onRequest: [fastify.authenticate] }, async (request, reply) => {
-    try {
-      const user = request.user as User;
-      const updateData = UpdateSchema.parse(request.body);
-      const updateUser = new UpdateUser();
-      const result = await updateUser.execute({user, data: updateData});
-      reply.status(200).send(result);
-    } catch (error) {
-      throw error;
+  fastify.put<{ Params: IParams }>(
+    '/',
+    { onRequest: [fastify.authenticate] },
+    async (request, reply) => {
+      try {
+        const user = request.user as User;
+        const updateData = UpdateSchema.parse(request.body);
+        const updateUser = new UpdateUser();
+        const result = await updateUser.execute({ user, data: updateData });
+        reply.status(200).send(result);
+      } catch (error) {
+        throw error;
+      }
     }
-  });
+  );
 
   fastify.put(
     '/link-interests',
