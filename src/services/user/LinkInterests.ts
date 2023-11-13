@@ -23,13 +23,14 @@ class LinkInterests {
         throw new AppError('User not found.', 404);
       }
 
+      const oldInterests = findUser.interests ?? []
       await prisma.user.update({
         where: {
           id: user.id
         },
         data: {
           interests: {
-            disconnect: findUser.interests.map((interest) => ({
+            disconnect: oldInterests.map((interest) => ({
               id: interest.id
             }))
           }
