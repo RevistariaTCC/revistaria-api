@@ -23,7 +23,7 @@ class LinkInterests {
         throw new AppError('User not found.', 404);
       }
 
-      const oldInterests = findUser.interests ?? []
+      const oldInterests = findUser.interests ?? [];
       await prisma.user.update({
         where: {
           id: user.id
