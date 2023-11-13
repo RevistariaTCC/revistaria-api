@@ -4,6 +4,7 @@ import CreateCollection from '../../services/collection/CreateCollection';
 import ListCollections from '../../services/collection/ListCollections';
 import DeleteCollection from '../../services/collection/DeleteCollection';
 import UpdateCollection from '../../services/collection/UpdateCollection';
+import GetCollection from '../../services/collection/GetCollection';
 
 vi.mock('../../adapters/prisma-adapter.ts');
 
@@ -98,4 +99,25 @@ describe('Collections Services', () => {
       expect(spyFind).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('GetCollection()', () => {
+    it('Should return the collection when found by ID', async () => {
+      const spyFind = prismaAdapter.collection.findUnique.mockResolvedValue(collection);
+      const getCollection = new GetCollection()
+      const result = await getCollection.execute(collection.id)
+
+      expect(spyFind).toHaveBeenCalledTimes(1);
+      expect(result).toStrictEqual(collection);
+    })
+
+    it('Should return collection not found when id doesnt exists', async () => {
+      const spyFind = prismaAdapter.collection.findUnique.mockResolvedValue(null);
+      const getCollection = new GetCollection();
+
+      await expect(getCollection.execute(collection.id)).rejects.toThrowError(
+        'Collection not found.'
+      );
+      expect(spyFind).toHaveBeenCalledTimes(1);
+    });
+  })
 });

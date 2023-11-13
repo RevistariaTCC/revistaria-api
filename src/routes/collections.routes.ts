@@ -2,7 +2,8 @@ import { FastifyInstance } from 'fastify';
 import CollectionSchema from '../schemas/collection';
 import CreateCollection from '../services/collection/CreateCollection';
 import ListCollections from '../services/collection/ListCollections';
-import { iQuery } from '../types';
+import { IParams, iQuery } from '../types';
+import GetCollections from '../services/collection/GetCollection';
 
 const routes = async (fastify: FastifyInstance) => {
   fastify.post('/', async (request, reply) => {
@@ -26,6 +27,20 @@ const routes = async (fastify: FastifyInstance) => {
       throw error;
     }
   });
+
+  fastify.get<{ Params: IParams }>(
+    '/:id',
+    async (request, reply) => {
+      try {
+        const {id} = request.params
+        const getCollections = new GetCollections()
+        const result = await getCollections.execute(id)
+        reply.status(200).send(result);
+      } catch (error) {
+        throw error;
+      }
+    }
+  );
 };
 
 export default routes;
