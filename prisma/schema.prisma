@@ -25,14 +25,15 @@ enum VolumeStatus {
 }
 
 model Volume {
-  id   String @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           String @id @default(uuid())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
   status       VolumeStatus @default(AVAILABLE)
   collection   Collection   @relation(fields: [collectionId], references: [id])
   collectionId String
-  title String
-  image String
+  title        String
+  image        String
+  synopsis     String
 }
 
 model Collection {
@@ -46,6 +47,7 @@ model Collection {
   volumes           Volume[]
   users             User[]
   collectionGroupId String?
+  description       String
 }
 
 model User {
