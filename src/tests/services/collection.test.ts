@@ -102,16 +102,18 @@ describe('Collections Services', () => {
 
   describe('GetCollection()', () => {
     it('Should return the collection when found by ID', async () => {
-      const spyFind = prismaAdapter.collection.findUnique.mockResolvedValue(collection);
-      const getCollection = new GetCollection()
-      const result = await getCollection.execute(collection.id)
+      const spyFind =
+        prismaAdapter.collection.findUnique.mockResolvedValue(collection);
+      const getCollection = new GetCollection();
+      const result = await getCollection.execute(collection.id);
 
       expect(spyFind).toHaveBeenCalledTimes(1);
       expect(result).toStrictEqual(collection);
-    })
+    });
 
     it('Should return collection not found when id doesnt exists', async () => {
-      const spyFind = prismaAdapter.collection.findUnique.mockResolvedValue(null);
+      const spyFind =
+        prismaAdapter.collection.findUnique.mockResolvedValue(null);
       const getCollection = new GetCollection();
 
       await expect(getCollection.execute(collection.id)).rejects.toThrowError(
@@ -119,5 +121,5 @@ describe('Collections Services', () => {
       );
       expect(spyFind).toHaveBeenCalledTimes(1);
     });
-  })
+  });
 });

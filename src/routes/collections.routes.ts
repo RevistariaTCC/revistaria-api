@@ -28,19 +28,16 @@ const routes = async (fastify: FastifyInstance) => {
     }
   });
 
-  fastify.get<{ Params: IParams }>(
-    '/:id',
-    async (request, reply) => {
-      try {
-        const {id} = request.params
-        const getCollections = new GetCollections()
-        const result = await getCollections.execute(id)
-        reply.status(200).send(result);
-      } catch (error) {
-        throw error;
-      }
+  fastify.get<{ Params: IParams }>('/:id', async (request, reply) => {
+    try {
+      const { id } = request.params;
+      const getCollections = new GetCollections();
+      const result = await getCollections.execute(id);
+      reply.status(200).send(result);
+    } catch (error) {
+      throw error;
     }
-  );
+  });
 };
 
 export default routes;
