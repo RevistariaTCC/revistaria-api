@@ -10,46 +10,57 @@ interface iRequest {
 
 class ReserveVolume {
   public async execute({ volumeId, user }: iRequest) {
-    const volume = await prisma.volume.findUnique({
-      where: {
-        id: volumeId
-      },
-      include: {
-        collection: {
-          select: {
-            name: true
+    try {
+      const volume = await prisma.volume.findUnique({
+        where: {
+          id: volumeId
+        },
+        include: {
+          collection: {
+            select: {
+              name: true
+            }
           }
         }
-      }
-    });
+      });
 
-    if (!volume) throw new AppError('Volume not found!', 404);
+      if (!volume) throw new AppError('Volume not found!', 404);
 
-    if (volume.units == 0 || volume.status === VolumeStatus.UNAVAILABLE)
-      throw new AppError('Volume is unavailable!', 403);
+      if (volume.units == 0 || volume.status === VolumeStatus.UNAVAILABLE)
+        throw new AppError('Volume is unavailable!', 403);
 
-    const units = volume.units ?? 0;
+      const units = volume.units ?? 0;
 
-    const status =
-      units - 1 > 0 ? VolumeStatus.AVAILABLE : VolumeStatus.UNAVAILABLE
+      const status =
+        units - 1 > 0 ? VolumeStatus.AVAILABLE : VolumeStatus.UNAVAILABLE;
 
-    await prisma.volume.update({
-      where: {
-        id: volume.id
-      },
-      data: {
-        status: status,
-        units: units > 0 ? units - 1 : 0
-      }
-    });
+      await prisma.volume.update({
+        where: {
+          id: volume.id
+        },
+        data: {
+          status: status,
+          units: units > 0 ? units - 1 : 0
+        }
+      });
 
-    const reservationInfo = {
-      volumeTitle: volume.title,
-      collectionName: volume.collection.name,
-      userName: user.name,
-      userPhone: user.phone
-    };
-    reserationsQueue.add('send', reservationInfo, { removeOnComplete: true });
+      const reservationInfo = {
+        volumeTitle: volume.title,
+        collectionName: volume.collection.name,
+        user: user
+      };
+
+      await prisma.reservation.create({
+        data: {
+          userId: user.id,
+          volumeId: volume.id
+        }
+      });
+
+      reserationsQueue.add('send', reservationInfo, { removeOnComplete: true });
+    } catch (error) {
+      throw error;
+    }
   }
 }
 
