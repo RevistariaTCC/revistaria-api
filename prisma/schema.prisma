@@ -28,13 +28,13 @@ model Volume {
   id           String @id @default(uuid())
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-  status       VolumeStatus @default(AVAILABLE)
+  status       VolumeStatus @default(UNAVAILABLE)
   collection   Collection   @relation(fields: [collectionId], references: [id])
   collectionId String
   title        String
   image        String
   synopsis     String
-  units Int? @default(0)
+  units Int @default(0)
 }
 
 model Collection {

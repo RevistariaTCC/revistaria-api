@@ -5,7 +5,9 @@ const VolumeSchema = z.object({
   title: z.string(),
   image: z.string(),
   collectionId: z.string(),
-  status: z.enum(['AVAILABLE', 'UNAVAILABLE'])
+  synopsis: z.string(),
+  status: z.enum(['AVAILABLE', 'UNAVAILABLE']),
+  units: z.number().optional()
 });
 
 const UpdateSchema = VolumeSchema.partial();

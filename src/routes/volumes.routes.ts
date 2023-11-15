@@ -4,6 +4,9 @@ import CreateVolume from '../services/volume/CreateVolume';
 import ListVolumes from '../services/volume/ListVolumes';
 import DeleteVolume from '../services/volume/DeleteVolume';
 import UpdateVolume from '../services/volume/UpdateVolume';
+import { IParams } from '../types';
+import ReserveVolume from '../services/volume/ReserveVolume';
+import { User } from '@prisma/client';
 
 const routes = async (fastify: FastifyInstance) => {
   fastify.post('/', async (request, reply) => {
@@ -52,6 +55,18 @@ const routes = async (fastify: FastifyInstance) => {
       throw error;
     }
   });
+
+  fastify.post<{Params: IParams}>('/reservation/:id',  { onRequest: [fastify.authenticate] }, async(request, reply) => {
+    try {
+      const {id} = request.params
+      const user = request.user as User;
+      const reserveVolume = new ReserveVolume()
+      await reserveVolume.execute({volumeId: id, user})
+      reply.status(200).send("Reservado com sucesso!");
+    } catch (error) {
+      throw error;
+    }
+  })
 };
 
 export default routes;
