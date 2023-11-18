@@ -5,17 +5,12 @@ interface iJob {
   data: {
     volumeTitle: string;
     collectionName: string;
-    user: User
-  }
-
+    user: User;
+  };
 }
 
 export const reserveVolume = async (job: iJob) => {
-  const {
-    volumeTitle,
-    collectionName,
-    user,
-  } = job.data
+  const { volumeTitle, collectionName, user } = job.data;
   const text = `Olá ${user.name} Recebemos a sua reserva de ${collectionName} ${volumeTitle}
     Fique de olho, dentro das próximas 24 horas estará disponível para ser retirado na Banca!
   `;
@@ -24,8 +19,8 @@ export const reserveVolume = async (job: iJob) => {
     data: {
       userId: user.id,
       text: text,
-      title: "Reserva efetuada!",
+      title: 'Reserva efetuada!',
       type: NotificationType.NEW_RESERVATION
     }
-  })
+  });
 };

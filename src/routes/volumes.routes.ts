@@ -56,17 +56,21 @@ const routes = async (fastify: FastifyInstance) => {
     }
   });
 
-  fastify.post<{Params: IParams}>('/reservation/:id',  { onRequest: [fastify.authenticate] }, async(request, reply) => {
-    try {
-      const {id} = request.params
-      const user = request.user as User;
-      const reserveVolume = new ReserveVolume()
-      await reserveVolume.execute({volumeId: id, user})
-      reply.status(201).send({message: "Reservado com sucesso!"});
-    } catch (error) {
-      throw error;
+  fastify.post<{ Params: IParams }>(
+    '/reservation/:id',
+    { onRequest: [fastify.authenticate] },
+    async (request, reply) => {
+      try {
+        const { id } = request.params;
+        const user = request.user as User;
+        const reserveVolume = new ReserveVolume();
+        await reserveVolume.execute({ volumeId: id, user });
+        reply.status(201).send({ message: 'Reservado com sucesso!' });
+      } catch (error) {
+        throw error;
+      }
     }
-  })
+  );
 };
 
 export default routes;

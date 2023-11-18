@@ -158,16 +158,20 @@ const routes = async (fastify: FastifyInstance) => {
     }
   );
 
-  fastify.get('/reservations',  { onRequest: [fastify.authenticate] }, async(request, reply) =>{
-    try {
-      const user = request.user as User;
-      const getReservationByUser = new GetReservationByUser()
-      const result = await getReservationByUser.execute(user.id)
-      reply.status(200).send(result);
-    } catch (error) {
-      throw error;
+  fastify.get(
+    '/reservations',
+    { onRequest: [fastify.authenticate] },
+    async (request, reply) => {
+      try {
+        const user = request.user as User;
+        const getReservationByUser = new GetReservationByUser();
+        const result = await getReservationByUser.execute(user.id);
+        reply.status(200).send(result);
+      } catch (error) {
+        throw error;
+      }
     }
-  })
+  );
 };
 
 export default routes;

@@ -22,7 +22,7 @@ class GetReservationByUser {
               }
             }
           }
-        },
+        }
       });
     } catch (error) {
       throw error;
