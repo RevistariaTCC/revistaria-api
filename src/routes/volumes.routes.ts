@@ -62,7 +62,7 @@ const routes = async (fastify: FastifyInstance) => {
       const user = request.user as User;
       const reserveVolume = new ReserveVolume()
       await reserveVolume.execute({volumeId: id, user})
-      reply.status(200).send("Reservado com sucesso!");
+      reply.status(201).send({message: "Reservado com sucesso!"});
     } catch (error) {
       throw error;
     }

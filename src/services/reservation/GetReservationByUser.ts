@@ -14,6 +14,7 @@ class GetReservationByUser {
           volume: {
             select: {
               title: true,
+              image: true,
               collection: {
                 select: {
                   name: true
