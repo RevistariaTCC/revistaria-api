@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, VolumeStatus } from '@prisma/client';
 const prisma = new PrismaClient();
 async function main() {
   console.log('Starting seeds 🚀');
@@ -46,6 +46,8 @@ async function main() {
       volumes: {
         create: [
           {
+            status: VolumeStatus.AVAILABLE,
+            units: 3,
             title: 'Volume 0',
             image:
               'https://m.media-amazon.com/images/I/71sicR3ldaL._SL1459_.jpg',
@@ -53,6 +55,8 @@ async function main() {
               'O estudante colegial Yuuta Okkotsu deseja ser executado porque sofre com as ações de Rika Orimoto, espírito rancoroso que o possuiu. Enquanto isso, Satoru Gojou, professor que ensina a exorcizar "maldições", transfere Yuuta para a Escola Técnica Superior de Jujutsu de Tokyo. Tem início a pré-sequência da série Jujutsu Kaisen!'
           },
           {
+            status: VolumeStatus.AVAILABLE,
+            units: 3,
             title: 'Volume 1',
             image:
               'https://m.media-amazon.com/images/I/71PBZJaSmAL._AC_UF1000,1000_QL80_.jpg',
@@ -60,6 +64,8 @@ async function main() {
               'Apesar do estudante colegial Yuuji Itadori ter grande força física, ele se inscreve no Clube de Ocultismo. Certo dia, eles encontram um "objeto amaldiçoado" e retiram o selo, atraindo criaturas chamadas de "maldições". Itadori corre em socorro de seus colegas, mas será que ele será capaz de abater essas criaturas usando apenas a força física?! Na compra da primeira edição de Jujutsu ganhe de brinde um Poster Exclusivo'
           },
           {
+            status: VolumeStatus.AVAILABLE,
+            units: 3,
             title: 'Volume 2',
             image:
               'https://m.media-amazon.com/images/I/91MAequ2koL._SL1500_.jpg',
@@ -67,6 +73,8 @@ async function main() {
               'Um útero amaldiçoado surge repentinamente em um reformatório. Itadori e seus colegas do primeiro ano foram designados para salvar as pessoas que não conseguiram fugir do edifício! Mas o grupo depara-se com uma situação desesperadora: o útero se transformou em um espírito amaldiçoado de nível especial. Itadori tenta revidar, trocando de corpo com Sukuna, mas será que o plano vai dar certo?!'
           },
           {
+            status: VolumeStatus.AVAILABLE,
+            units: 3,
             title: 'Volume 3',
             image:
               'https://m.media-amazon.com/images/I/51whdHRS4LL._SY445_SX342_.jpg',
@@ -74,6 +82,8 @@ async function main() {
               'Aoi Toudou e Mai Zenin, da Escola Técnica Superior de Jujutsu de Kyoto, aparecem diante de Fushiguro e Kugisaki! O que Fushiguro respondeu para Toudou, quando questionado sobre o tipo de garota que ele gosta? Enquanto isso, Itadori é enviado para o local em que um espírito amaldiçoado provocou um incidente, fazendo com que o feiticeiro treine suas habilidades na prática!'
           },
           {
+            status: VolumeStatus.AVAILABLE,
+            units: 3,
             title: 'Volume 4',
             image:
               'https://m.media-amazon.com/images/I/71VS-OuXOjL._SL1459_.jpg',
@@ -267,6 +277,8 @@ async function main() {
       volumes: {
         create: [
           {
+            status: VolumeStatus.AVAILABLE,
+            units: 3,
             title: 'A Guerra Dos Tronos',
             image:
               'https://m.media-amazon.com/images/I/91eHityofNL._SY466_.jpg',
@@ -274,6 +286,8 @@ async function main() {
               'A guerra dos tronos é o primeiro livro da série best-seller internacional As Crônicas de Gelo e Fogo, que deu origem à adaptação de sucesso da HBO, Game of Thrones. O verão pode durar décadas. O inverno, toda uma vida. E a guerra dos tronos começou. Como Guardião do Norte, lorde Eddard Stark não fica feliz quando o rei Robert o proclama a nova Mão do Rei. Sua honra o obriga a aceitar o cargo e deixar seu posto em Winterfell para rumar para a corte, onde os homens fazem o que lhes convém, não o que devem... e onde um inimigo morto é algo a ser admirado. Longe de casa e com a família dividida, Eddard se vê cada vez mais enredado nas intrigas mortais de Porto Real, sem saber que perigos ainda maiores espreitam a distância. Nas florestas ao norte de Winterfell, forças sobrenaturais se espalham por trás da Muralha que protege a região. E, nas Cidades Livres, o jovem Rei Dragão exilado na Rebelião de Robert planeja sua vingança e deseja recuperar sua herança de família: o Trono de Ferro de Westeros.'
           },
           {
+            status: VolumeStatus.AVAILABLE,
+            units: 3,
             title: 'A Fúria dos Reis',
             image:
               'https://m.media-amazon.com/images/I/91N6C0jwzuL._SY466_.jpg',
@@ -281,6 +295,8 @@ async function main() {
               'Nesta emocionante sequência de A guerra dos tronos, George R. R. Martin cria uma obra incomparável. A fúria dos reis nos transporta para um mundo de festas e vinganças, feitiçaria e disputas, diferente de tudo que já foi feito. Um cometa da cor de fogo e sangue corta os céus. E, da antiga cidadela de Pedra do Dragão às costas áridas de Winterfell, reina o caos. Em A fúria dos reis, seis facções disputam o controle de uma terra dividida e o direito de ocupar o Trono de Ferro de Westeros – e estão dispostos a encarar tempestades, levantes e guerras para isso. Nesta história, irmão trama contra irmão e os mortos se levantam para caminhar pela noite. Aqui, uma princesa se disfarça de menino órfão, um cavaleiro se prepara para encarar uma pérfida feiticeira e bárbaros descem das Montanhas da Lua para saquear os campos. Em um contexto de incesto e fratricídio, alquimia e assassinato, a vitória será dos homens e mulheres que possuírem o mais frio aço... e o mais frio coração. Pois, quando se desperta a fúria dos reis, a terra inteira treme.'
           },
           {
+            status: VolumeStatus.AVAILABLE,
+            units: 3,
             title: 'A Tormenta de Espadas',
             image:
               'https://m.media-amazon.com/images/I/91VVZ-v5GYL._SY466_.jpg',
@@ -288,6 +304,8 @@ async function main() {
               'Este é o terceiro volume da série As Crônicas de Gelo e Fogo, que inclui A guerra dos tronos e A fúria dos reis. Já considerada um clássico, a obra emocionante de George R. R. Martin é um dos maiores feitos da literatura fantástica de todos os tempos. O futuro de Westeros está em jogo, e ninguém descansará até que os Sete Reinos tenham explodido em uma verdadeira tormenta de espadas. Dos cinco pretendentes ao trono, um está morto e outro caiu em desgraça, e ainda assim a guerra continua em toda sua fúria, enquanto alianças são feitas e desfeitas. Joffrey, da Casa Lannister, ocupa o Trono de Ferro, como o instável governante dos Sete Reinos, ao passo que seu rival mais amargo, lorde Stannis, jaz derrotado e enfeitiçado pelas promessas da Mulher Vermelha. O jovem Robb, da Casa Stark, ainda comanda o Norte, contudo, e planeja sua batalha contra os Lannister, mesmo que sua irmã seja refém deles em Porto Real. Enquanto isso, Daenerys Targaryen atravessa um continente deixando um rastro de sangue a caminho de Westeros, levando consigo os três únicos dragões existentes em todo o mundo. Enquanto forças opostas avançam para uma gigantesca batalha final, um exército de selvagens chega dos confins da civilização. Em seu rastro vem uma horda de terríveis criaturas místicas – os Outros: um batalhão de mortos-vivos cujos corpos são imparáveis.'
           },
           {
+            status: VolumeStatus.AVAILABLE,
+            units: 3,
             title: 'O Festim dos Corvos ',
             image:
               'https://m.media-amazon.com/images/I/814UZhEYFfL._SY466_.jpg',
@@ -295,6 +313,8 @@ async function main() {
               ' O festim dos corvos é o quarto livro da monumental saga de fantasia As Crônicas de Gelo e Fogo, sucesso internacional que deu origem a Game of Thrones. Neste livro, Martin coloca um reino dilacerado à beira da paz... só para ser lançado de novo rumo ao terror e à destruição. Há séculos os sete grandes reinos de Westeros se enfrentam em amargas disputas, batalhas e traições. Agora, com Joffrey Baratheon e Robb Stark fora da jogada e lordes insignificantes competindo pelas Ilhas de Ferro, a guerra que devorou o continente parece ter finalmente chegado ao fim. No entanto, como após todo grande conflito, não demora para que os sobreviventes, os bandidos, os renegados e os carniceiros avancem para disputar o espólio dos mortos. Por toda Westeros os lordes se agitam, formando alianças e fazendo planos, enquanto nomes conhecidos e desconhecidos se apresentam para tomar parte das danças políticas. Todos precisam lançar mão de suas habilidades e poderes para encarar os tempos de terror que se aproximam. Nobres e plebeus, soldados e feiticeiros, assassinos e saqueadores devem arriscar suas fortunas... e suas vidas, pois em um festim de corvos, muitos são os convidados ― e poucos os sobreviventes. '
           },
           {
+            status: VolumeStatus.AVAILABLE,
+            units: 3,
             title: 'A Dança dos Dragões ',
             image:
               'https://m.media-amazon.com/images/I/91DisjRjFxL._SY466_.jpg',

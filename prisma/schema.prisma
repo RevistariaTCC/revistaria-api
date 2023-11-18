@@ -28,12 +28,14 @@ model Volume {
   id           String @id @default(uuid())
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-  status       VolumeStatus @default(AVAILABLE)
+  status       VolumeStatus @default(UNAVAILABLE)
   collection   Collection   @relation(fields: [collectionId], references: [id])
   collectionId String
   title        String
   image        String
   synopsis     String
+  units Int @default(0)
+  reservations Reservation[]
 }
 
 model Collection {
@@ -63,6 +65,7 @@ model User {
   interests Category[]
   birthdate DateTime
   newsletter Boolean
+  reservations Reservation[]
 }
 
 model Notification {
@@ -85,6 +88,7 @@ enum NotificationStatus {
 enum NotificationType {
   NEW_VOLUME
   NEW_INTEREST
+  NEW_RESERVATION
 }
 
 // O nome será a junção dos nomes das 3 primeiras coleções seguido por um "etc".
@@ -93,4 +97,16 @@ model CollectionGroup {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   collections Collection[]
+}
+
+model Reservation {
+  id   String @id @default(uuid())
+  user User @relation(fields: [userId], references: [id])
+  userId String
+  volume Volume @relation(fields: [volumeId], references: [id])
+  volumeId String
+  claimed Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  claimedDate DateTime?
 }

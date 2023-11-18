@@ -10,6 +10,7 @@ import { User } from '@prisma/client';
 import { InterestSchema } from '../schemas/userInterests';
 import LinkCollection from '../services/user/LinkCollection';
 import UpdateUser from '../services/user/UpdateUser';
+import GetReservationByUser from '../services/reservation/GetReservationByUser';
 
 const routes = async (fastify: FastifyInstance) => {
   fastify.addHook('onSend', (request, reply, payload: string, done) => {
@@ -150,6 +151,21 @@ const routes = async (fastify: FastifyInstance) => {
 
         const result = await linkCollection.disconnect({ collectionID, user });
 
+        reply.status(200).send(result);
+      } catch (error) {
+        throw error;
+      }
+    }
+  );
+
+  fastify.get(
+    '/reservations',
+    { onRequest: [fastify.authenticate] },
+    async (request, reply) => {
+      try {
+        const user = request.user as User;
+        const getReservationByUser = new GetReservationByUser();
+        const result = await getReservationByUser.execute(user.id);
         reply.status(200).send(result);
       } catch (error) {
         throw error;

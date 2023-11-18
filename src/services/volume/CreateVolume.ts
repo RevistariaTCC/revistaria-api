@@ -7,7 +7,11 @@ class CreateVolume {
     const volume = await prisma.volume.create({
       data: params
     });
-    await notificationsQueue.add('create', { ...volume });
+    await notificationsQueue.add(
+      'create',
+      { ...volume },
+      { removeOnComplete: true }
+    );
     return volume;
   }
 }

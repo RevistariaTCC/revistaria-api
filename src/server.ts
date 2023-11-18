@@ -3,8 +3,16 @@ import { REDIS_HOST, REDIS_PORT } from './config/redis';
 
 import app from './app';
 import { createNotifications } from './workers/createNotifications';
+import { reserveVolume } from './workers/reserveVolume';
 
 new Worker('Notifications', createNotifications, {
+  connection: {
+    host: REDIS_HOST,
+    port: REDIS_PORT
+  }
+});
+
+new Worker('Reservations', reserveVolume, {
   connection: {
     host: REDIS_HOST,
     port: REDIS_PORT
