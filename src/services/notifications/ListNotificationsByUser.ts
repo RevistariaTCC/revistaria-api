@@ -6,6 +6,9 @@ class ListNotificationsByUser {
       return await prisma.notification.findMany({
         where: {
           userId: userID
+        },
+        orderBy: {
+          createdAt: "desc"
         }
       });
     } catch (error) {
