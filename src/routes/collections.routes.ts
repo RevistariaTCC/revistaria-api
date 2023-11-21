@@ -40,16 +40,19 @@ const routes = async (fastify: FastifyInstance) => {
     }
   });
 
-  fastify.get<{ Params: IParams }>('/:id/suggestions', async (request, reply) => {
-    try {
-      const { id } = request.params;
-      const getSuggestions = new GetSuggestions();
-      const result = await getSuggestions.execute(id);
-      reply.status(200).send(result);
-    } catch (error) {
-      throw error;
+  fastify.get<{ Params: IParams }>(
+    '/:id/suggestions',
+    async (request, reply) => {
+      try {
+        const { id } = request.params;
+        const getSuggestions = new GetSuggestions();
+        const result = await getSuggestions.execute(id);
+        reply.status(200).send(result);
+      } catch (error) {
+        throw error;
+      }
     }
-  });
+  );
 };
 
 export default routes;

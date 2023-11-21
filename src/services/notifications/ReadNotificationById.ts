@@ -7,14 +7,14 @@ class ReadNotificationById {
     try {
       const notificationFind = await prisma.notification.findUnique({
         where: {
-          id: id,          
+          id: id
         }
-
       });
 
       if (!notificationFind) throw new AppError('Notification not found.', 404);
 
-      if(notificationFind.userId !== user.id)  throw new AppError('Notification not found.', 404);
+      if (notificationFind.userId !== user.id)
+        throw new AppError('Notification not found.', 404);
       return await prisma.notification.update({
         where: {
           id

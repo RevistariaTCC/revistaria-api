@@ -44,7 +44,7 @@ const routes = async (fastify: FastifyInstance) => {
     async (request, reply) => {
       try {
         const { id } = request.params;
-        const user = request.user as User
+        const user = request.user as User;
         const readNotificationById = new ReadNotificationById();
         const result = readNotificationById.execute(id, user);
 

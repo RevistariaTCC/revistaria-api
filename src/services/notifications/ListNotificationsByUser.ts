@@ -8,7 +8,7 @@ class ListNotificationsByUser {
           userId: userID
         },
         orderBy: {
-          createdAt: "desc"
+          createdAt: 'desc'
         }
       });
     } catch (error) {

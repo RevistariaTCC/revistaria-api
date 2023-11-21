@@ -10,7 +10,7 @@ export default class GetSuggestions {
       include: {
         categories: true
       }
-    })
+    });
 
     if (!collection) {
       throw new AppError('Collection not found.', 404);
@@ -20,15 +20,15 @@ export default class GetSuggestions {
       where: {
         categories: {
           some: {
-            id: { in: collection.categories.map(category => category.id)}
-          } 
+            id: { in: collection.categories.map((category) => category.id) }
+          }
         },
         id: {
           not: id
         }
-      },
-    })
-  
-    return suggestions
+      }
+    });
+
+    return suggestions;
   }
 }
