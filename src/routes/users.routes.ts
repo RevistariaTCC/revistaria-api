@@ -11,6 +11,7 @@ import { InterestSchema } from '../schemas/userInterests';
 import LinkCollection from '../services/user/LinkCollection';
 import UpdateUser from '../services/user/UpdateUser';
 import GetReservationByUser from '../services/reservation/GetReservationByUser';
+import GetHomeContent from '../services/user/GetHomeContent';
 
 const routes = async (fastify: FastifyInstance) => {
   fastify.addHook('onSend', (request, reply, payload: string, done) => {
@@ -172,6 +173,18 @@ const routes = async (fastify: FastifyInstance) => {
       }
     }
   );
+  
+  fastify.get('/home', {onRequest: [fastify.authenticate]}, async(request,reply) => {
+    try {
+      const user = request.user as User
+      const getHomeContent = new GetHomeContent()
+      const result = await getHomeContent.execute(user);
+      reply.status(200).send(result);
+    } catch (error) {
+      throw error;
+
+    }
+  })
 };
 
 export default routes;
