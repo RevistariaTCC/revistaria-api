@@ -31,7 +31,7 @@ const routes = async (fastify: FastifyInstance) => {
         const user = request.user as User;
         const readAllNotificationsByUser = new ReadAllNotificationsByUser();
         await readAllNotificationsByUser.execute(user.id);
-        reply.status(204);
+        reply.status(200).send({});
       } catch (error) {
         throw error;
       }
@@ -39,13 +39,14 @@ const routes = async (fastify: FastifyInstance) => {
   );
 
   fastify.put<{ Params: IParams }>(
-    '/:id',
+    '/:id/read',
     { onRequest: [fastify.authenticate] },
     async (request, reply) => {
       try {
         const { id } = request.params;
+        const user = request.user as User;
         const readNotificationById = new ReadNotificationById();
-        const result = readNotificationById.execute(id);
+        const result = readNotificationById.execute(id, user);
 
         reply.status(200).send(result);
       } catch (error) {

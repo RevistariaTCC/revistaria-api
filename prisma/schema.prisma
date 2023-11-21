@@ -78,6 +78,7 @@ model Notification {
   type   NotificationType   @default(NEW_VOLUME)
   user   User               @relation(fields: [userId], references: [id])
   userId String
+  data String?
 }
 
 enum NotificationStatus {
