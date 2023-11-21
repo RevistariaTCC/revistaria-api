@@ -13,6 +13,7 @@ interface IJob {
 export const createNotifications = async (job: IJob) => {
   const nameAndUserIds = await prisma.collection.findUnique({
     select: {
+      id: true,
       name: true,
       users: {
         select: {
@@ -32,7 +33,8 @@ export const createNotifications = async (job: IJob) => {
         text: `A coleção ${nameAndUserIds.name} acaba de receber a adição de ${job.data.title}`,
         userId: user.id,
         status: 'UNREAD',
-        type: 'NEW_VOLUME'
+        type: 'NEW_VOLUME',
+        data: nameAndUserIds.id
       }))
     });
   }
