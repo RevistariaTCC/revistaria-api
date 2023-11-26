@@ -44,20 +44,38 @@ class ReserveVolume {
         }
       });
 
-      const reservationInfo = {
-        volumeTitle: volume.title,
-        collectionName: volume.collection.name,
-        user: user
-      };
-
-      await prisma.reservation.create({
+      const reservation = await prisma.reservation.create({
         data: {
           userId: user.id,
           volumeId: volume.id
+        },
+        select: {
+          id: true,
+          createdAt: true,
+          volume: {
+            select: {
+              title: true,
+              collection: {
+                select: {
+                  name: true
+                }
+              }
+            }
+          },
+          user: true
         }
       });
 
-      reserationsQueue.add('send', reservationInfo, { removeOnComplete: true });
+      reserationsQueue.add(
+        'send',
+        {
+          reservation: reservation,
+          volume: reservation.volume,
+          collection: reservation.volume.collection,
+          user: reservation.user
+        },
+        { removeOnComplete: true }
+      );
     } catch (error) {
       throw error;
     }
