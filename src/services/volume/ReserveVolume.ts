@@ -43,13 +43,13 @@ class ReserveVolume {
           units: units > 0 ? units - 1 : 0
         }
       });
-      
+
       const reservation = await prisma.reservation.create({
         data: {
           userId: user.id,
           volumeId: volume.id
         },
-        select:{
+        select: {
           id: true,
           createdAt: true,
           volume: {
@@ -57,7 +57,7 @@ class ReserveVolume {
               title: true,
               collection: {
                 select: {
-                  name: true,
+                  name: true
                 }
               }
             }
@@ -66,13 +66,16 @@ class ReserveVolume {
         }
       });
 
-
-      reserationsQueue.add('send', {
-        reservation: reservation,
-        volume: reservation.volume,
-        collection: reservation.volume.collection,
-        user: reservation.user
-      }, { removeOnComplete: true });
+      reserationsQueue.add(
+        'send',
+        {
+          reservation: reservation,
+          volume: reservation.volume,
+          collection: reservation.volume.collection,
+          user: reservation.user
+        },
+        { removeOnComplete: true }
+      );
     } catch (error) {
       throw error;
     }
