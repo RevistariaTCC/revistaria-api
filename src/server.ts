@@ -4,6 +4,7 @@ import { REDIS_HOST, REDIS_PORT } from './config/redis';
 import app from './app';
 import { createNotifications } from './workers/createNotifications';
 import { reserveVolume } from './workers/reserveVolume';
+import { sendCode } from './workers/sendCode';
 
 new Worker('Notifications', createNotifications, {
   connection: {
@@ -13,6 +14,13 @@ new Worker('Notifications', createNotifications, {
 });
 
 new Worker('Reservations', reserveVolume, {
+  connection: {
+    host: REDIS_HOST,
+    port: REDIS_PORT
+  }
+});
+
+new Worker('Codes', sendCode, {
   connection: {
     host: REDIS_HOST,
     port: REDIS_PORT

@@ -7,6 +7,7 @@ import notificationRoutes from './notifications.routes';
 import volumesRoutes from './volumes.routes';
 import sessionsRoutes from './sessions.routes';
 import webhooksRoutes from './webhooks.routes';
+import codesRoutes from './codes.routes'
 
 import authConfig from '../config/auth';
 
@@ -33,6 +34,7 @@ const routes = async (fastify: FastifyInstance) => {
   fastify.register(volumesRoutes, { prefix: '/volumes' });
   fastify.register(sessionsRoutes, { prefix: '/sessions' });
   fastify.register(webhooksRoutes, { prefix: '/webhooks' });
+  fastify.register(codesRoutes, { prefix: '/activation-code' });
 };
 
 export default routes;
