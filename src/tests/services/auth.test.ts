@@ -17,7 +17,7 @@ describe('Auth Service', () => {
       createdAt: new Date(),
       updatedAt: new Date(),
       birthdate: new Date(),
-      newsletter: false,
+      newsletter: false
     };
 
     it('Should return the generated session', async () => {

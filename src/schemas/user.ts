@@ -3,7 +3,7 @@ import { validateCpf } from '../utils/ValidateCpf';
 
 const UserSchema = z.object({
   id: z.string().optional(),
-  cpf: z.string().refine((cpf: string) => validateCpf(cpf), "CPF inválido."),
+  cpf: z.string().refine((cpf: string) => validateCpf(cpf), 'CPF inválido.'),
   name: z.string(),
   birthdate: z.coerce.date(),
   phone: z.string(),

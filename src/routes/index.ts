@@ -7,7 +7,7 @@ import notificationRoutes from './notifications.routes';
 import volumesRoutes from './volumes.routes';
 import sessionsRoutes from './sessions.routes';
 import webhooksRoutes from './webhooks.routes';
-import codesRoutes from './codes.routes'
+import codesRoutes from './codes.routes';
 
 import authConfig from '../config/auth';
 

@@ -12,7 +12,7 @@ class GenerateCode {
         }
       });
 
-      codesQueue.add('send', {activationCode}, { removeOnComplete: true });
+      codesQueue.add('send', { activationCode }, { removeOnComplete: true });
       return activationCode;
     } catch (error) {
       throw error;

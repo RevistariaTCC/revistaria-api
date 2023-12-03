@@ -20,7 +20,7 @@ describe('Volume Services', () => {
     createdAt: new Date(),
     updatedAt: new Date(),
     synopsis: '',
-    units: 10,
+    units: 10
   };
   describe('CreateVolume()', () => {
     it('Sould return the generated volume without creating a notification', async () => {
