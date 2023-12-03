@@ -8,14 +8,16 @@ describe('Auth Service', () => {
   describe('CreateSession()', () => {
     const user = {
       id: 'uuid-test-1',
-      email: 'test@email.com',
+      cpf: '123.321.123-40',
       name: 'test',
       phone: '41999999999',
       password: 'test123',
       passwordHash:
         '$2a$08$wopVCye3Y0E70XgUNlWOhO0h6xoKqM.0AgInC7M0Pe/ERXXaaIHXy',
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
+      birthdate: new Date(),
+      newsletter: false
     };
 
     it('Should return the generated session', async () => {
@@ -23,23 +25,23 @@ describe('Auth Service', () => {
 
       const createSession = new CreateSession();
       const result = await createSession.execute({
-        email: user.email,
+        cpf: user.cpf,
         password: user.password
       });
       expect(result).toStrictEqual(user);
       expect(spyFind).toHaveBeenCalledTimes(1);
     });
 
-    it('Should return Incorrect email/password combination when email is invalid', async () => {
+    it('Should return Incorrect cpf/password combination when email is invalid', async () => {
       const spyFind = prismaAdapter.user.findUnique.mockResolvedValue(null);
 
       const createSession = new CreateSession();
       await expect(
         createSession.execute({
-          email: 'teste@email.com',
+          cpf: '111.111.111-00',
           password: user.password
         })
-      ).rejects.toThrowError('Incorrect email/password combination');
+      ).rejects.toThrowError('Incorrect cpf/password combination');
       expect(spyFind).toHaveBeenCalledTimes(1);
     });
 
@@ -48,8 +50,8 @@ describe('Auth Service', () => {
 
       const createSession = new CreateSession();
       await expect(
-        createSession.execute({ email: 'teste@email.com', password: 'test' })
-      ).rejects.toThrowError('Incorrect email/password combination');
+        createSession.execute({ cpf: '111.111.111-00', password: 'test' })
+      ).rejects.toThrowError('Incorrect cpf/password combination');
       expect(spyFind).toHaveBeenCalledTimes(1);
     });
   });

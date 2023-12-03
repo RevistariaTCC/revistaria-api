@@ -60,7 +60,7 @@ describe('Notification services', () => {
 
     const user = {
       id: 'uuid-test-2',
-      email: 'test@email.com',
+      cpf: '123.321.123-40',
       name: 'test',
       phone: '41999999999',
       password: 'test123',

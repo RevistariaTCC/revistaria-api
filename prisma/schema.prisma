@@ -56,7 +56,6 @@ model User {
   id   String @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  email         String         @unique
   name          String
   phone         String
   passwordHash  String
@@ -66,6 +65,17 @@ model User {
   birthdate DateTime
   newsletter Boolean
   reservations Reservation[]
+  cpf         String         @unique
+}
+
+model ActivationCode {
+  id   String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  code String
+  phone String
+  used Boolean @default(false)
+  expired Boolean @default(false)
 }
 
 model Notification {

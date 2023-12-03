@@ -12,6 +12,7 @@ describe('Collections Services', () => {
   const collection = {
     id: 'be32003d-73f5-45d8-8b79-050a0c58554f',
     name: 'Jujutsu Kaisen',
+    description: 'abc',
     image: 'https://m.media-amazon.com/images/',
     categories: ['5b765eb3-40cf-48ee-a988-415bc6c6c0d3'],
     collectionGroupId: '',
@@ -44,7 +45,7 @@ describe('Collections Services', () => {
       expect(spyDelete).toHaveBeenCalledTimes(1);
     });
 
-    it('Should return collection not found when id doesnt exists', async () => {
+    it("Should return collection not found when id doesn't exists", async () => {
       const spyFind =
         prismaAdapter.collection.findUnique.mockResolvedValue(null);
       const deleteCategory = new DeleteCollection();
@@ -87,7 +88,7 @@ describe('Collections Services', () => {
       expect(spyUpdate).toHaveBeenCalledTimes(1);
     });
 
-    it('Should return collection not found when id doesnt exists', async () => {
+    it("Should return collection not found when id doesn't exists", async () => {
       const spyFind =
         prismaAdapter.collection.findUnique.mockResolvedValue(null);
 
@@ -111,7 +112,7 @@ describe('Collections Services', () => {
       expect(result).toStrictEqual(collection);
     });
 
-    it('Should return collection not found when id doesnt exists', async () => {
+    it("Should return collection not found when id doesn't exists", async () => {
       const spyFind =
         prismaAdapter.collection.findUnique.mockResolvedValue(null);
       const getCollection = new GetCollection();

@@ -13,7 +13,7 @@ vi.mock('../../adapters/prisma-adapter.ts');
 describe('User Services', () => {
   const user = {
     id: 'test-uuid-1',
-    email: 'test@email.com',
+    cpf: '123.321.123-40',
     name: 'test',
     phone: '41999999999',
     password: 'test123',
@@ -36,12 +36,12 @@ describe('User Services', () => {
       expect(result).toStrictEqual(result);
     });
 
-    it('Should return error if email address already used.', async () => {
+    it('Should return error if cpf already used.', async () => {
       const spyFind = prismaAdapter.user.findFirst.mockResolvedValue(user);
       const createUser = new CreateUser();
 
       await expect(createUser.execute(user)).rejects.toThrowError(
-        'Email address already used.'
+        'CPF já esta em uso!'
       );
       expect(spyFind).toHaveBeenCalledTimes(1);
     });
@@ -59,7 +59,7 @@ describe('User Services', () => {
       expect(result).toStrictEqual(user);
     });
 
-    it('Should return user not found when id doesnt exists', async () => {
+    it("Should return user not found when id doesn't exists", async () => {
       const deleteUser = new DeleteUser();
 
       await expect(deleteUser.execute(user.id)).rejects.toThrowError(
@@ -92,7 +92,7 @@ describe('User Services', () => {
   describe('LinkCollections()', () => {
     const user = {
       id: 'uuid-test-1',
-      email: 'test@email.com',
+      cpf: '123.321.123-40',
       name: 'test',
       phone: '41999999999',
       passwordHash: 'test123',
@@ -130,7 +130,7 @@ describe('User Services', () => {
       expect(result).toStrictEqual(updatedUser);
     });
 
-    it('Should return user not found when id doesnt exists on connect', async () => {
+    it("Should return user not found when id doesn't exists on connect", async () => {
       const spyFind = prismaAdapter.user.findUnique.mockResolvedValue(null);
       const linkCollection = new LinkCollection();
 
@@ -158,7 +158,7 @@ describe('User Services', () => {
       expect(result).toStrictEqual({ ...user, collections: [] } as User);
     });
 
-    it('Should return user not found when id doesnt exists on disconnect', async () => {
+    it("Should return user not found when id doesn't exists on disconnect", async () => {
       const spyFind = prismaAdapter.user.findUnique.mockResolvedValue(null);
       const linkCollection = new LinkCollection();
 
@@ -172,7 +172,7 @@ describe('User Services', () => {
   describe('LinkInterests()', () => {
     const user = {
       id: 'uuid-test-1',
-      email: 'test@email.com',
+      cpf: '123.321.123-40',
       name: 'test',
       phone: '41999999999',
       passwordHash: 'test123',
@@ -235,7 +235,7 @@ describe('User Services', () => {
       expect(result).toStrictEqual({ ...user, collections: [] } as User);
     });
 
-    it('Should return user not found when id doesnt exists on disconnect', async () => {
+    it("Should return user not found when id doesn't exists on disconnect", async () => {
       const spyFind = prismaAdapter.user.findUnique.mockResolvedValue(null);
       const linkInterests = new LinkInterests();
 

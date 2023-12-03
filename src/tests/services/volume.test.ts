@@ -18,7 +18,9 @@ describe('Volume Services', () => {
     status: VolumeStatus.AVAILABLE,
     collectionId: 'f5be74ba-7dec-43b0-a8b2-e29ff7f6ce90',
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
+    synopsis: '',
+    units: 10
   };
   describe('CreateVolume()', () => {
     it('Sould return the generated volume without creating a notification', async () => {
