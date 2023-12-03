@@ -5,16 +5,16 @@ import { hash } from 'bcryptjs';
 
 class CreateUser {
   public async execute(params: User) {
-    const { email, name, password, phone, birthdate, newsletter } = params;
+    const { cpf, name, password, phone, birthdate, newsletter } = params;
 
     const checkUserExist = await prisma.user.findFirst({
       where: {
-        email: email
+        cpf: cpf
       }
     });
 
     if (checkUserExist) {
-      throw new AppError('Email address already used.');
+      throw new AppError('CPF já esta em uso!');
     }
 
     const hashedPassword = await hash(password, 8);
@@ -22,7 +22,7 @@ class CreateUser {
     return await prisma.user.create({
       data: {
         passwordHash: hashedPassword,
-        email,
+        cpf,
         name,
         phone,
         birthdate,
