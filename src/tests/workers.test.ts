@@ -1,6 +1,5 @@
 import { it, expect, describe, vi } from 'vitest';
 import prismaAdapter from '../adapters/__mocks__/prisma-adapter';
-import { NotificationStatus, NotificationType } from '@prisma/client';
 import { createNotifications } from '../workers/createNotifications';
 
 vi.mock('../adapters/prisma-adapter.ts');
@@ -10,6 +9,7 @@ describe('Workers', () => {
     const collection = {
       id: 'uuid-test-1',
       name: 'Jujutsu Kaisen',
+      description: '',
       image: 'https://m.media-amazon.com/images/',
       categories: ['uuid-test-2'],
       collectionGroupId: '',

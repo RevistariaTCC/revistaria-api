@@ -3,7 +3,7 @@ export interface IParams {
 }
 
 export interface IBodySession {
-  email: string;
+  cpf: string;
   password: string;
 }
 
