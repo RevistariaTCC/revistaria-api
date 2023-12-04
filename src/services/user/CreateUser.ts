@@ -1,12 +1,11 @@
 import prisma from '../../adapters/prisma-adapter';
 import { User } from '../../schemas/user';
 import AppError from '../../errors/AppError';
-import { hash } from 'bcryptjs';
+import { hash } from 'bcrypt';
 
 class CreateUser {
   public async execute(params: User) {
     const { cpf, name, password, phone, birthdate, newsletter } = params;
-
     const checkUserExist = await prisma.user.findFirst({
       where: {
         cpf: cpf

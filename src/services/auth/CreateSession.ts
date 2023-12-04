@@ -1,6 +1,6 @@
 import prisma from '../../adapters/prisma-adapter';
 import AppError from '../../errors/AppError';
-import { compare } from 'bcryptjs';
+import { compare } from 'bcrypt';
 import { PartialUser } from '../../schemas/user';
 
 interface Request {
