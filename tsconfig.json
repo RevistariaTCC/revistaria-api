@@ -3,7 +3,10 @@
   "compilerOptions": {
     "outDir": "dist",
     "sourceMap": true,
-    "lib": ["DOM"]
+    "lib": ["DOM"],
+    "module": "ES2020",
+    "moduleResolution": "Bundler",
+    "target": "ESNext"
   },
   "include": ["src/**/*.ts"]
 }
