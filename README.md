@@ -5,7 +5,7 @@ Estrutura de serviços para o TCC de Revistaria da FESPPR 2023
 ## Versões das tecnologias
 
 - Node: 20.0
-- MongoDB: latest
+- Postgres: latest
 
 ## Integrações
 
