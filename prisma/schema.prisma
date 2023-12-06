@@ -86,7 +86,7 @@ model Notification {
   text   String
   status NotificationStatus @default(UNREAD)
   type   NotificationType   @default(NEW_VOLUME)
-  user   User               @relation(fields: [userId], references: [id])
+  user   User               @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
   data String?
 }
@@ -112,7 +112,7 @@ model CollectionGroup {
 
 model Reservation {
   id   String @id @default(uuid())
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
   volume Volume @relation(fields: [volumeId], references: [id])
   volumeId String
