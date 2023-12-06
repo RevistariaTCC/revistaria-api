@@ -23,7 +23,7 @@ const routes = async (fastify: FastifyInstance) => {
       }
       done(null, JSON.stringify(newPayload));
     } catch (error) {
-      done(null, payload)
+      done(null, payload);
     }
   });
 
