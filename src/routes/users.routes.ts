@@ -15,12 +15,16 @@ import GetHomeContent from '../services/user/GetHomeContent';
 
 const routes = async (fastify: FastifyInstance) => {
   fastify.addHook('onSend', (request, reply, payload: string, done) => {
-    const newPayload = JSON.parse(payload);
-    delete newPayload.passwordHash;
-    if ('result' in newPayload) {
-      delete newPayload.result.passwordHash;
+    try {
+      const newPayload = JSON.parse(payload);
+      delete newPayload.passwordHash;
+      if ('result' in newPayload) {
+        delete newPayload.result.passwordHash;
+      }
+      done(null, JSON.stringify(newPayload));
+    } catch (error) {
+      done(null, payload)
     }
-    done(null, JSON.stringify(newPayload));
   });
 
   fastify.get('/', async (request, reply) => {
@@ -49,9 +53,9 @@ const routes = async (fastify: FastifyInstance) => {
     try {
       const user = UserSchema.parse(request.body);
       const createUserService = new CreateUser();
-      const result: PartialUser = await createUserService.execute(user);
-      const token = fastify.jwt.sign(user);
-      reply.status(201).send({ result, token });
+      const data: PartialUser = await createUserService.execute(user);
+      const token = fastify.jwt.sign(data);
+      reply.status(201).send({ data, token });
     } catch (error) {
       throw error;
     }

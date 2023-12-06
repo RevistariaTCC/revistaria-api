@@ -7,7 +7,7 @@ class ListUsers {
         select: {
           id: true,
           name: true,
-          email: true,
+          cpf: true,
           phone: true,
           passwordHash: false
         }
