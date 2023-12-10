@@ -25,7 +25,10 @@ class CreateUser {
         name,
         phone,
         birthdate,
-        newsletter
+        newsletter,
+        interests: {
+          connect: params.interests?.map((id) => ({ id: id }))
+        }
       }
     });
   }
