@@ -111,11 +111,7 @@ const start = async () => {
     {
       store: sessionStore as any,
       saveUninitialized: true,
-      secret: cookieSecret,
-      cookie: {
-        httpOnly: process.env.NODE_ENV === 'production',
-        secure: process.env.NODE_ENV === 'production'
-      }
+      secret: cookieSecret
     }
   );
 
