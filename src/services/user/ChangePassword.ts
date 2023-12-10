@@ -34,8 +34,7 @@ class ChangePassword {
         data: {
           passwordHash: hashedPassword
         }
-      })
-
+      });
     } catch (error) {
       throw error;
     }

@@ -202,41 +202,50 @@ const routes = async (fastify: FastifyInstance) => {
 
   fastify.post('/request-new-password', async (request, reply) => {
     try {
-      const data = FindUserSchema.parse(request.body)
-      const getUserByCpf = new GetUserByCpf()
-      const user = await getUserByCpf.execute(data)
-      const generateCode = new GenerateCode()
+      const data = FindUserSchema.parse(request.body);
+      const getUserByCpf = new GetUserByCpf();
+      const user = await getUserByCpf.execute(data);
+      const generateCode = new GenerateCode();
       const result = await generateCode.execute(user.phone);
       reply.status(201).send(result);
     } catch (error) {
       throw error;
     }
-  })
+  });
 
-  fastify.post('/reset-password', async(request, reply) => {
+  fastify.post('/reset-password', async (request, reply) => {
     try {
-        const {cpf, newPassword} = NewPasswordSchema.parse(request.body)
-        const resetPassword = new ResetPassword();
-        const result = await resetPassword.execute(newPassword, cpf)
-        reply.status(201).send(result);
+      const { cpf, newPassword } = NewPasswordSchema.parse(request.body);
+      const resetPassword = new ResetPassword();
+      const result = await resetPassword.execute(newPassword, cpf);
+      reply.status(201).send(result);
     } catch (error) {
       throw error;
     }
-  })
+  });
 
-  fastify.post('/change-password',  { onRequest: [fastify.authenticate] }, async(request, reply) => {
-    try {
-      const {password, newPassword} = ChangePasswordSchema.parse(request.body)
-      const user = request.user as User;
-      const changePassword = new ChangePassword()
+  fastify.post(
+    '/change-password',
+    { onRequest: [fastify.authenticate] },
+    async (request, reply) => {
+      try {
+        const { password, newPassword } = ChangePasswordSchema.parse(
+          request.body
+        );
+        const user = request.user as User;
+        const changePassword = new ChangePassword();
 
-      const result = await changePassword.execute(user, {password, newPassword})
+        const result = await changePassword.execute(user, {
+          password,
+          newPassword
+        });
 
-      reply.status(200).send(result)
-    } catch (error) {
-      throw error;
+        reply.status(200).send(result);
+      } catch (error) {
+        throw error;
+      }
     }
-  })
+  );
 };
 
 export default routes;
