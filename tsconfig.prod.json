@@ -5,8 +5,8 @@
     "outDir": "dist",
     "sourceMap": true,
     "lib": ["DOM"],
-    "module": "ES2020",
-    "moduleResolution": "Bundler",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "target": "ESNext"
   },
   "include": ["src/**/*.ts"]

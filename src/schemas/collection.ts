@@ -5,7 +5,8 @@ const CollectionSchema = z.object({
   name: z.string(),
   image: z.string(),
   collectionGroupId: z.string().optional(),
-  categories: z.string().array()
+  categories: z.string().array(),
+  description: z.string()
 });
 
 const UpdateSchema = CollectionSchema.partial();
